@@ -1,0 +1,1374 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Holiday home</title>
+<meta name="description" content="">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,300;1,9..144,400&display=swap" rel="stylesheet">
+<style>
+/* =====================================================================
+   THEME: re-theme a client site by editing these tokens only.
+   ===================================================================== */
+:root{
+  --bg:        #F5F0E7;   /* linen page background */
+  --surface:   #FBF8F2;   /* cards, panels */
+  --sand:      #EAE1D1;   /* alternate section background */
+  --line:      #D8CCB8;   /* hairlines, borders */
+  --ink:       #2A221C;   /* headings and body text */
+  --ink-soft:  #5E5248;   /* secondary text (AA on --bg and --sand) */
+  --accent:    #56653A;   /* muted olive: buttons, selected dates */
+  --accent-ink:#FFFFFF;   /* text on accent */
+  --accent-tint:#DDE1CC;  /* selected date range */
+  --booked:    #CFC3AF;   /* booked-date hatching */
+  --dark:      #1E1915;   /* footer, lightbox */
+
+  --serif: "Fraunces", Georgia, "Times New Roman", serif;
+  --sans:  "DM Sans", "Helvetica Neue", Arial, sans-serif;
+  --gutter: clamp(16px, 4vw, 48px);
+  --maxw: 1240px;
+  --radius: 4px;
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 17px/1.65 var(--sans);overflow-x:hidden;-webkit-font-smoothing:antialiased}
+img{display:block;max-width:100%}
+a{color:inherit}
+button{font:inherit;color:inherit;cursor:pointer}
+h1,h2,h3{font-family:var(--serif);font-weight:350;line-height:1.08;letter-spacing:-.015em;margin:0;font-variation-settings:"SOFT" 30}
+p{margin:0 0 1em}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.visually-hidden{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.skip{position:absolute;left:-999px;top:8px;z-index:100;background:var(--ink);color:var(--bg);padding:10px 16px}
+.skip:focus{left:8px}
+.wrap{max-width:var(--maxw);margin-inline:auto;padding-inline:var(--gutter)}
+section{scroll-margin-top:64px}
+
+.eyebrow{font:600 12px/1.4 var(--sans);letter-spacing:.16em;text-transform:uppercase;color:var(--ink-soft);margin:0 0 14px}
+.h2{font-size:clamp(2.1rem,4.6vw,3.5rem)}
+.lede{font-size:clamp(1.05rem,1.4vw,1.2rem);color:var(--ink-soft);max-width:36em}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:48px;padding:0 24px;border-radius:999px;border:1px solid transparent;
+  background:var(--accent);color:var(--accent-ink);font:500 15px/1 var(--sans);letter-spacing:.01em;text-decoration:none;transition:background .2s,color .2s,border-color .2s}
+.btn:hover{background:color-mix(in srgb,var(--accent) 86%,#000)}
+.btn-light{background:var(--bg);color:var(--ink)}
+.btn-light:hover{background:#fff}
+.btn-line{background:transparent;color:var(--ink);border-color:var(--ink)}
+.btn-line:hover{background:var(--ink);color:var(--bg)}
+.btn[aria-disabled="true"]{opacity:.45;pointer-events:none}
+.btn svg{width:18px;height:18px;flex:none}
+
+/* ---------- Reveal on scroll ---------- */
+.js .reveal{opacity:0;transform:translateY(18px);transition:opacity .9s ease,transform .9s ease}
+.js .reveal.in{opacity:1;transform:none}
+
+/* ---------- Nav ---------- */
+.nav{position:fixed;inset:0 0 auto 0;z-index:40;display:flex;align-items:center;justify-content:space-between;gap:16px;
+  height:64px;padding-inline:var(--gutter);color:#fff;transition:background .35s,color .35s,box-shadow .35s}
+.nav.solid{background:var(--bg);color:var(--ink);box-shadow:0 1px 0 var(--line)}
+.brand{font:400 21px/1 var(--serif);text-decoration:none;letter-spacing:-.01em;white-space:nowrap;min-height:44px;display:flex;align-items:center}
+.nav-links{display:none;gap:4px}
+.nav-links a{font-size:15px;text-decoration:none;padding:12px 12px;opacity:.9}
+.nav-links a:hover{opacity:1;text-decoration:underline;text-underline-offset:5px}
+.nav-right{display:flex;align-items:center;gap:10px}
+.lang{display:flex;border:1px solid currentColor;border-radius:999px;padding:2px}
+.lang button{min-width:44px;min-height:44px;border:0;background:transparent;border-radius:999px;font-size:13px;font-weight:600;letter-spacing:.06em}
+.lang button[aria-pressed="true"]{background:currentColor}
+.lang button[aria-pressed="true"] span{color:var(--ink)}
+.nav.solid .lang button[aria-pressed="true"] span{color:var(--bg)}
+.nav-cta{display:none;min-height:44px;padding:0 20px}
+.nav:not(.solid) .nav-cta{background:var(--bg);color:var(--ink)}
+@media (min-width:960px){.nav-links{display:flex}.nav-cta{display:inline-flex}}
+
+/* ---------- Hero ---------- */
+.hero{position:relative;height:100vh;height:100svh;min-height:560px;overflow:hidden;color:#fff;background:var(--dark)}
+.hero-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform-origin:50% 60%;animation:heroZoom 40s ease-out forwards}
+@keyframes heroZoom{from{transform:scale(1.001)}to{transform:scale(1.1)}}
+.hero-scrim{position:absolute;inset:0;background:linear-gradient(180deg,rgba(20,15,10,.45) 0%,rgba(20,15,10,0) 22%,rgba(20,15,10,0) 42%,rgba(20,15,10,.72) 100%)}
+.hero-inner{position:absolute;inset:auto 0 0 0;padding-bottom:clamp(40px,8vh,88px)}
+.hero h1{font-size:clamp(3.1rem,10vw,8rem);font-weight:300;letter-spacing:-.03em;margin-bottom:.18em;text-wrap:balance}
+.hero-tagline{font:300 clamp(1.15rem,2.2vw,1.6rem)/1.35 var(--serif);max-width:30em;margin-bottom:22px;text-wrap:balance}
+.hero-facts{display:flex;flex-wrap:wrap;row-gap:2px;font-size:14px;letter-spacing:.04em;margin-bottom:18px;opacity:.95}
+.hero-facts span{white-space:nowrap}
+.hero-facts span+span::before{content:"·";margin:0 .6em;opacity:.7}
+
+/* ---------- Section rhythm ---------- */
+.section{padding-block:clamp(72px,11vw,150px)}
+.section-head{margin-bottom:clamp(32px,5vw,56px)}
+.alt{background:var(--sand)}
+
+/* ---------- Gallery ---------- */
+.gallery-top{display:flex;flex-wrap:wrap;align-items:end;justify-content:space-between;gap:20px 32px}
+.chips{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;margin-inline:calc(var(--gutter)*-1);padding:2px var(--gutter)}
+.chips::-webkit-scrollbar{display:none}
+.chip{flex:none;min-height:44px;padding:0 18px;border-radius:999px;border:1px solid var(--line);background:transparent;font-size:14px;color:var(--ink);transition:background .2s,border-color .2s,color .2s}
+.chip:hover{border-color:var(--ink)}
+.chip[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--bg)}
+@media (min-width:760px){.chips{margin:0;padding:2px}}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);grid-auto-rows:46vw;gap:6px;padding-inline:6px;margin-top:32px;grid-auto-flow:dense}
+.tile{grid-column:span var(--mc,1);grid-row:span var(--mr,1);position:relative;overflow:hidden;border:0;padding:0;background:var(--sand);display:block;animation:tileIn .6s ease both}
+.tile img{width:100%;height:100%;object-fit:cover;transition:transform 1.2s cubic-bezier(.2,.6,.2,1)}
+.tile:hover img{transform:scale(1.035)}
+.tile .cap{position:absolute;left:0;bottom:0;padding:10px 14px;font-size:13px;color:#fff;background:linear-gradient(0deg,rgba(0,0,0,.5),rgba(0,0,0,0));width:100%;text-align:left;opacity:0;transition:opacity .3s}
+.tile:hover .cap,.tile:focus-visible .cap{opacity:1}
+.tile:focus-visible{outline-offset:-3px;outline-color:#fff}
+@keyframes tileIn{from{opacity:0}to{opacity:1}}
+@media (min-width:760px){
+  .grid{grid-template-columns:repeat(12,1fr);grid-auto-rows:clamp(150px,17vw,280px);gap:8px;padding-inline:8px}
+  .tile{grid-column:span var(--c,4);grid-row:span var(--r,1)}
+}
+.gallery-more{text-align:center;margin-top:32px}
+
+/* ---------- House ---------- */
+.house{display:grid;gap:48px}
+.house-copy p{font-size:1.08rem;max-width:34em}
+.sleep{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
+.sleep li{display:grid;grid-template-columns:88px 1fr;gap:18px;align-items:center;padding:18px 0;border-bottom:1px solid var(--line)}
+.sleep img{width:88px;height:88px;object-fit:cover;border-radius:var(--radius)}
+.sleep h3{font-size:1.35rem;margin-bottom:2px}
+.sleep .floor{font-size:13px;color:var(--ink-soft);letter-spacing:.04em}
+.beds{display:flex;flex-wrap:wrap;gap:4px 16px;margin-top:8px;font-size:15px}
+.bed{display:inline-flex;align-items:center;gap:7px}
+.bed svg{width:30px;height:20px;color:var(--accent)}
+@media (min-width:900px){.house{grid-template-columns:1fr 1fr;gap:clamp(48px,8vw,120px);align-items:start}}
+
+/* ---------- Amenities ---------- */
+.amen{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr 1fr;column-gap:20px}
+.amen li{display:flex;align-items:center;gap:14px;padding:16px 0;border-top:1px solid var(--line);font-size:15px;line-height:1.35}
+.amen svg{width:26px;height:26px;flex:none;color:var(--accent);stroke-width:1.4}
+@media (min-width:900px){
+  .amen-layout{display:grid;grid-template-columns:5fr 7fr;gap:clamp(48px,8vw,120px);align-items:start}
+  .amen{column-gap:40px}.amen li{font-size:16px;padding:18px 0}
+}
+
+/* ---------- Location ---------- */
+.band{position:relative;height:clamp(320px,62vh,640px);overflow:hidden}
+.band img{width:100%;height:100%;object-fit:cover}
+.band-cap{position:absolute;left:var(--gutter);bottom:18px;color:#fff;font-size:13px;letter-spacing:.04em;text-shadow:0 1px 8px rgba(0,0,0,.6)}
+.loc{display:grid;gap:40px}
+.places{list-style:none;margin:0;padding:0}
+.places li{display:flex;align-items:baseline;gap:12px;padding:14px 0;border-bottom:1px solid var(--line)}
+.places .name{flex:none;max-width:62%}
+.places .dots{flex:1;border-bottom:1px dotted var(--ink-soft);opacity:.5;transform:translateY(-4px)}
+.places .time{flex:none;color:var(--ink-soft);font-size:15px;text-align:right}
+.private{display:flex;gap:10px;align-items:flex-start;margin-top:24px;font-size:15px;color:var(--ink-soft)}
+.private svg{width:20px;height:20px;flex:none;margin-top:2px;color:var(--accent)}
+@media (min-width:900px){.loc{grid-template-columns:5fr 7fr;gap:clamp(48px,8vw,120px)}}
+
+/* ---------- Reviews ---------- */
+.rating{display:flex;align-items:baseline;gap:16px;flex-wrap:wrap;margin-top:12px}
+.rating .score{font:300 clamp(3rem,6vw,4.5rem)/1 var(--serif)}
+.rating .stars{display:inline-flex;gap:3px;color:var(--accent)}
+.rating .stars svg{width:18px;height:18px}
+.rating .label{color:var(--ink-soft);font-size:15px}
+.reviews{display:grid;gap:16px}
+.review{position:relative;background:var(--surface);padding:32px 28px 28px;border-radius:var(--radius);display:flex;flex-direction:column;border:1px dashed transparent}
+.review.is-sample{border-color:var(--line)}
+.review blockquote{margin:0 0 20px;font:300 1.2rem/1.5 var(--serif);font-style:italic}
+.review:first-child blockquote{font-size:clamp(1.3rem,2.2vw,1.65rem)}
+.review footer{margin-top:auto;font-size:14px;color:var(--ink-soft)}
+.review footer strong{color:var(--ink);font-weight:600}
+.sample-tag{position:absolute;top:12px;right:12px;font:600 11px/1 var(--sans);letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft);border:1px solid var(--line);padding:6px 8px;border-radius:999px}
+@media (min-width:900px){.reviews{grid-template-columns:1.35fr 1fr}.review:first-child{grid-row:span 2;padding:48px}}
+
+/* ---------- Availability ---------- */
+.book{display:grid;gap:32px}
+.cal-card,.panel{background:var(--surface);border-radius:var(--radius);padding:clamp(18px,3vw,32px)}
+.cal-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:18px}
+.demo-badge{display:inline-flex;align-items:center;gap:8px;font:600 11px/1 var(--sans);letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft);border:1px solid var(--line);padding:7px 10px;border-radius:999px}
+.demo-badge::before{content:"";width:6px;height:6px;border-radius:50%;background:#B7773F}
+.cal-nav{display:flex;gap:6px}
+.icon-btn{width:44px;height:44px;border-radius:50%;border:1px solid var(--line);background:transparent;display:inline-flex;align-items:center;justify-content:center}
+.icon-btn:hover:not(:disabled){border-color:var(--ink)}
+.icon-btn:disabled{opacity:.35;cursor:default}
+.icon-btn svg{width:18px;height:18px}
+.months{display:grid;gap:32px}
+@media (min-width:900px){.months.two{grid-template-columns:1fr 1fr}}
+.month h3{font:400 1.25rem/1.2 var(--serif);text-align:center;margin-bottom:12px;text-transform:capitalize}
+.dow,.days{display:grid;grid-template-columns:repeat(7,1fr)}
+.dow span{font-size:12px;text-align:center;color:var(--ink-soft);padding-bottom:6px;text-transform:capitalize}
+.day{position:relative;height:46px;border:0;background:transparent;padding:0;font-size:15px;font-variant-numeric:tabular-nums;display:flex;align-items:center;justify-content:center;z-index:0}
+.day::before{content:"";position:absolute;inset:3px;border-radius:50%;z-index:-1;transition:background .15s}
+.day:not(:disabled):hover::before{background:var(--sand)}
+.day:disabled{cursor:default;color:#A2968A}
+.day.past{color:#B9AEA2}
+.day.booked{color:#8E8175;text-decoration:line-through;text-decoration-color:rgba(94,82,72,.5)}
+.day.booked::after{content:"";position:absolute;inset:3px;border-radius:50%;z-index:-1;background:repeating-linear-gradient(135deg,transparent 0 4px,var(--booked) 4px 5.5px)}
+.day.booked.co-ok{color:var(--ink);text-decoration:none;cursor:pointer}
+.day.today{font-weight:600}
+.day.today::after{content:"";position:absolute;bottom:8px;left:50%;width:4px;height:4px;margin-left:-2px;border-radius:50%;background:var(--accent)}
+.day.in-range{background:var(--accent-tint)}
+.day.start,.day.end{color:var(--accent-ink);font-weight:600}
+.day.start::before,.day.end::before{background:var(--accent)!important}
+.day.start.has-end{background:linear-gradient(90deg,transparent 50%,var(--accent-tint) 50%)}
+.day.end{background:linear-gradient(90deg,var(--accent-tint) 50%,transparent 50%)}
+.legend{display:flex;flex-wrap:wrap;gap:8px 20px;margin-top:18px;font-size:13px;color:var(--ink-soft)}
+.legend span{display:inline-flex;align-items:center;gap:8px}
+.legend i{width:14px;height:14px;border-radius:50%;display:inline-block;border:1px solid var(--line)}
+.legend .l-booked{background:repeating-linear-gradient(135deg,transparent 0 3px,var(--booked) 3px 4.5px)}
+.legend .l-sel{background:var(--accent);border-color:var(--accent)}
+.cal-status{min-height:1.6em;margin:14px 0 0;font-size:14px;color:var(--ink-soft)}
+.cal-status.warn{color:#8A3B1E}
+
+.rates{width:100%;border-collapse:collapse;font-size:15px;margin-top:8px}
+.rates th,.rates td{text-align:left;padding:12px 0;border-bottom:1px solid var(--line);font-weight:400;vertical-align:top}
+.rates td{text-align:right;white-space:nowrap;padding-left:16px}
+.rates th small{display:block;color:var(--ink-soft);font-size:13px}
+.rates-title{font:400 1.25rem/1.2 var(--serif);margin:32px 0 4px}
+
+.panel{align-self:start}
+.panel-from{font:300 1.9rem/1.1 var(--serif);margin-bottom:4px}
+.panel-from small{font:400 15px var(--sans);color:var(--ink-soft)}
+.fields{display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--line);border-radius:var(--radius);margin:20px 0 12px}
+.field{padding:10px 14px;min-height:60px;background:transparent;border:0;text-align:left;display:flex;flex-direction:column;justify-content:center}
+.field+.field{border-left:1px solid var(--line)}
+.field span{font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft)}
+.field strong{font-weight:500;font-size:15px}
+.guests{display:flex;align-items:center;justify-content:space-between;border:1px solid var(--line);border-radius:var(--radius);padding:8px 8px 8px 14px}
+.guests .lbl span{display:block;font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft)}
+.stepper{display:flex;align-items:center;gap:6px}
+.stepper output{min-width:28px;text-align:center;font-weight:600;font-variant-numeric:tabular-nums}
+.breakdown{list-style:none;margin:20px 0 0;padding:0;font-size:15px}
+.breakdown li{display:flex;justify-content:space-between;gap:16px;padding:7px 0}
+.breakdown .muted{color:var(--ink-soft);font-size:13px;padding-top:0}
+.breakdown .total{border-top:1px solid var(--line);margin-top:8px;padding-top:14px;font-weight:600;font-size:17px}
+.breakdown .discount span:last-child{color:var(--accent)}
+.save{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--accent);margin:12px 0 0}
+.save svg{width:16px;height:16px;flex:none}
+.empty{font-size:15px;color:var(--ink-soft);margin:20px 0 0}
+.actions{display:grid;gap:10px;margin-top:22px}
+.confirm-note{font-size:13px;color:var(--ink-soft);margin:14px 0 0;text-align:center}
+@media (min-width:900px){
+  .book{grid-template-columns:minmax(0,1fr) 380px;gap:32px;align-items:start}
+  .panel{position:sticky;top:88px}
+}
+
+/* ---------- Good to know ---------- */
+.keyfacts{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line);margin-bottom:40px}
+.keyfacts div{background:var(--bg);padding:20px}
+.keyfacts span{display:block;font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:6px}
+.keyfacts strong{font:400 1.5rem/1.2 var(--serif)}
+@media (min-width:760px){.keyfacts{grid-template-columns:repeat(3,1fr)}}
+@media (max-width:759px){.keyfacts div:last-child{grid-column:span 2}}
+.acc{border-top:1px solid var(--line)}
+.acc details{border-bottom:1px solid var(--line)}
+.acc summary{list-style:none;display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:60px;padding:14px 0;cursor:pointer;font:400 1.2rem/1.3 var(--serif)}
+.acc summary::-webkit-details-marker{display:none}
+.acc summary::after{content:"";flex:none;width:12px;height:12px;border-right:1.5px solid currentColor;border-bottom:1.5px solid currentColor;transform:rotate(45deg) translate(-3px,-3px);transition:transform .3s}
+.acc details[open] summary::after{transform:rotate(-135deg) translate(-3px,-3px)}
+.acc .body{padding:0 0 22px;color:var(--ink-soft);max-width:44em}
+.acc ul{margin:0;padding-left:1.1em}
+.acc li{margin:4px 0}
+@media (min-width:900px){.info{display:grid;grid-template-columns:5fr 7fr;gap:clamp(48px,8vw,120px)}}
+
+/* ---------- Footer ---------- */
+.foot{background:var(--dark);color:#E9E1D5;padding:72px 0 calc(40px + env(safe-area-inset-bottom))}
+.foot h2{font-size:clamp(2rem,4vw,3rem);color:#fff;margin-bottom:12px}
+.foot p{color:#C9BFB2}
+.foot-grid{display:grid;gap:40px}
+.foot-links{display:grid;gap:4px}
+.foot-links a{display:inline-flex;align-items:center;gap:12px;min-height:44px;text-decoration:none;font-size:16px;color:#fff}
+.foot-links a:hover{text-decoration:underline;text-underline-offset:5px}
+.foot-links svg{width:20px;height:20px;color:#C9BFB2}
+.credit{margin-top:56px;padding-top:24px;border-top:1px solid rgba(255,255,255,.14);display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px 24px;font-size:13px;color:#ADA396}
+.credit a{color:#ADA396}
+@media (min-width:900px){.foot-grid{grid-template-columns:1.2fr 1fr;align-items:end}}
+
+/* ---------- Mobile sticky bar ---------- */
+.mbar{position:fixed;left:0;right:0;bottom:0;z-index:30;display:flex;align-items:center;justify-content:space-between;gap:12px;
+  padding:10px var(--gutter) calc(10px + env(safe-area-inset-bottom));background:var(--bg);border-top:1px solid var(--line);transition:transform .35s ease}
+.mbar.hide{transform:translateY(110%)}
+.mbar .from{font-size:15px;line-height:1.3}
+.mbar .from strong{font:500 1.15rem var(--serif)}
+.mbar .btn{min-height:46px;padding:0 20px}
+@media (min-width:960px){.mbar{display:none}}
+@media (max-width:959px){body{padding-bottom:72px}}
+
+/* ---------- Lightbox ---------- */
+.lb{position:fixed;inset:0;z-index:60;background:rgba(22,18,15,.97);color:#fff;display:flex;flex-direction:column;opacity:0;visibility:hidden;transition:opacity .35s ease,visibility 0s linear .35s}
+.lb.open{opacity:1;visibility:visible;transition:opacity .35s ease}
+.lb-top{display:flex;justify-content:space-between;align-items:center;padding:8px 8px 8px var(--gutter);min-height:60px;font-size:14px;color:#D6CEC3}
+.lb-stage{flex:1;position:relative;display:flex;align-items:center;justify-content:center;min-height:0;padding:0 8px;touch-action:pan-y}
+.lb-stage img{max-width:100%;max-height:100%;object-fit:contain;transition:opacity .3s ease,transform .45s cubic-bezier(.2,.6,.2,1);user-select:none;-webkit-user-drag:none}
+.lb-stage img.fading{opacity:0;transform:scale(.985)}
+.lb-cap{padding:14px var(--gutter) calc(18px + env(safe-area-inset-bottom));text-align:center;font:300 1.05rem/1.4 var(--serif);min-height:56px}
+.lb .icon-btn{border-color:rgba(255,255,255,.3);color:#fff;width:48px;height:48px;background:rgba(22,18,15,.4)}
+.lb .icon-btn:hover{border-color:#fff}
+.lb-prev,.lb-next{position:absolute;top:50%;transform:translateY(-50%)}
+.lb-prev{left:12px}.lb-next{right:12px}
+@media (max-width:759px){.lb-prev,.lb-next{top:auto;bottom:8px;transform:none}.lb-stage{padding-bottom:64px}}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+  .js .reveal{opacity:1;transform:none}
+}
+</style>
+</head>
+<body>
+<!--
+  TEMPLATE NOTE: this markup contains no client-specific text.
+  Everything is rendered from CONFIG (property data) and DICT (interface text) in the script below.
+-->
+<a class="skip" href="#main" data-i18n="skip"></a>
+
+<header class="nav" id="nav">
+  <a class="brand" href="#top" data-config="propertyName"></a>
+  <nav class="nav-links" data-i18n-aria="navLabel">
+    <a href="#gallery" data-i18n="navGallery"></a>
+    <a href="#house" data-i18n="navHouse"></a>
+    <a href="#location" data-i18n="navLocation"></a>
+    <a href="#reviews" data-i18n="navReviews"></a>
+    <a href="#info" data-i18n="navInfo"></a>
+  </nav>
+  <div class="nav-right">
+    <div class="lang" role="group" data-i18n-aria="langLabel" id="langSwitch"></div>
+    <a class="btn nav-cta" href="#availability" data-i18n="ctaAvailability"></a>
+  </div>
+</header>
+
+<main id="main">
+  <!-- 1. HERO -->
+  <section class="hero" id="top">
+    <img class="hero-img" id="heroImg" alt="" fetchpriority="high">
+    <div class="hero-scrim" aria-hidden="true"></div>
+    <div class="hero-inner wrap">
+      <p class="hero-facts" id="heroFacts"></p>
+      <h1 data-config="propertyName"></h1>
+      <p class="hero-tagline" id="heroTagline"></p>
+      <a class="btn btn-light" href="#availability" data-i18n="ctaAvailability"></a>
+    </div>
+  </section>
+
+  <!-- 2. GALLERY -->
+  <section class="section" id="gallery" style="padding-bottom:clamp(56px,8vw,110px)">
+    <div class="wrap gallery-top reveal">
+      <div>
+        <p class="eyebrow" data-i18n="galleryEyebrow"></p>
+        <h2 class="h2" data-i18n="galleryTitle"></h2>
+      </div>
+      <div class="chips" id="chips" role="group" data-i18n-aria="galleryFilter"></div>
+    </div>
+    <div class="grid" id="grid"></div>
+    <div class="gallery-more" id="galleryMore"></div>
+  </section>
+
+  <!-- 3. THE HOUSE -->
+  <section class="section alt" id="house">
+    <div class="wrap house">
+      <div class="house-copy reveal">
+        <p class="eyebrow" data-i18n="houseEyebrow"></p>
+        <h2 class="h2" id="houseTitle" style="margin-bottom:28px"></h2>
+        <div id="houseText"></div>
+      </div>
+      <div class="reveal">
+        <p class="eyebrow" data-i18n="sleepTitle"></p>
+        <ul class="sleep" id="sleep"></ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. AMENITIES -->
+  <section class="section" id="amenities">
+    <div class="wrap amen-layout">
+      <div class="reveal section-head">
+        <p class="eyebrow" data-i18n="amenEyebrow"></p>
+        <h2 class="h2" data-i18n="amenTitle"></h2>
+      </div>
+      <ul class="amen reveal" id="amenities-list"></ul>
+    </div>
+  </section>
+
+  <!-- 5. LOCATION -->
+  <section id="location">
+    <figure class="band" style="margin:0">
+      <img id="locImg" loading="lazy" alt="">
+      <figcaption class="band-cap" id="locCap"></figcaption>
+    </figure>
+    <div class="section wrap loc">
+      <div class="reveal">
+        <p class="eyebrow" data-i18n="locEyebrow"></p>
+        <h2 class="h2" id="locTitle" style="margin-bottom:24px"></h2>
+        <p class="lede" id="locIntro"></p>
+        <p class="private" id="locPrivate"></p>
+      </div>
+      <ul class="places reveal" id="places"></ul>
+    </div>
+  </section>
+
+  <!-- 6. REVIEWS -->
+  <section class="section alt" id="reviews">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <p class="eyebrow" data-i18n="reviewsEyebrow"></p>
+        <div class="rating" id="rating"></div>
+      </div>
+      <div class="reviews reveal" id="reviewList"></div>
+    </div>
+  </section>
+
+  <!-- 7. AVAILABILITY & RATES -->
+  <section class="section" id="availability">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <p class="eyebrow" data-i18n="availEyebrow"></p>
+        <h2 class="h2" data-i18n="availTitle"></h2>
+      </div>
+      <div class="book">
+        <div>
+          <div class="cal-card">
+            <div class="cal-head">
+              <span class="demo-badge" id="demoBadge" hidden data-i18n="demoBadge"></span>
+              <span></span>
+              <div class="cal-nav">
+                <button class="icon-btn" type="button" id="calPrev" data-i18n-aria="prevMonth"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+                <button class="icon-btn" type="button" id="calNext" data-i18n-aria="nextMonth"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
+              </div>
+            </div>
+            <div class="months" id="months"></div>
+            <p class="cal-status" id="calStatus" aria-live="polite"></p>
+            <div class="legend" id="legend"></div>
+          </div>
+          <h3 class="rates-title" data-i18n="ratesTitle"></h3>
+          <table class="rates" id="rateTable"></table>
+        </div>
+        <aside class="panel" id="panel" data-i18n-aria="panelLabel"></aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8. GOOD TO KNOW -->
+  <section class="section alt" id="info">
+    <div class="wrap info">
+      <div class="reveal">
+        <p class="eyebrow" data-i18n="infoEyebrow"></p>
+        <h2 class="h2" data-i18n="infoTitle" style="margin-bottom:32px"></h2>
+      </div>
+      <div class="reveal">
+        <div class="keyfacts" id="keyfacts"></div>
+        <div class="acc" id="accordion"></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- 9. FOOTER -->
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <h2 data-config="propertyName"></h2>
+        <p id="footTag"></p>
+      </div>
+      <div class="foot-links" id="footLinks"></div>
+    </div>
+    <div class="credit">
+      <span id="copyright"></span>
+      <span id="credit"></span>
+    </div>
+  </div>
+</footer>
+
+<!-- Mobile sticky booking bar -->
+<div class="mbar" id="mbar">
+  <span class="from" id="mbarFrom"></span>
+  <a class="btn" href="#availability" data-i18n="ctaAvailability"></a>
+</div>
+
+<!-- Lightbox -->
+<div class="lb" id="lb" role="dialog" aria-modal="true" data-i18n-aria="lbLabel" aria-hidden="true">
+  <div class="lb-top">
+    <span id="lbCount" aria-live="polite"></span>
+    <button class="icon-btn" type="button" id="lbClose" data-i18n-aria="close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+  </div>
+  <div class="lb-stage" id="lbStage">
+    <img id="lbImg" alt="">
+    <button class="icon-btn lb-prev" type="button" id="lbPrev" data-i18n-aria="prevPhoto"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+    <button class="icon-btn lb-next" type="button" id="lbNext" data-i18n-aria="nextPhoto"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
+  </div>
+  <p class="lb-cap" id="lbCap"></p>
+</div>
+
+<script>
+/* =====================================================================
+   CONFIG: the only thing you edit for a new client.
+   Text fields are { en: '…', nl: '…' }. Photos are files next to index.html.
+   ===================================================================== */
+const CONFIG = {
+  propertyName: 'Thong Lor House',
+  defaultLanguage: 'en',                     // 'en' or 'nl'
+  tagline: {
+    en: 'A private three-bedroom home, three minutes from BTS Thong Lo.',
+    nl: 'Een eigen huis met drie slaapkamers, drie minuten van BTS Thong Lo.'
+  },
+  metaDescription: {
+    en: 'Book Thong Lor House direct: a renovated 160 m² townhouse in Bangkok for up to 10 guests, 3 minutes from BTS Thong Lo.',
+    nl: 'Boek Thong Lor House direct: een gerenoveerd herenhuis van 160 m² in Bangkok voor maximaal 10 gasten, 3 minuten van BTS Thong Lo.'
+  },
+  facts: {                                   // hero key-facts line
+    en: ['10 guests', '3 bedrooms', '3 baths', '160 m²', 'BTS 3 min'],
+    nl: ['10 gasten', '3 slaapkamers', '3 badkamers', '160 m²', 'BTS 3 min']
+  },
+
+  /* ---- Prices: PLACEHOLDER example rates, confirm with the owner ---- */
+  currency: '€',
+  rates: {
+    weekday: 155,                            // per night, Sun–Thu
+    weekend: 180,                            // per night, the nights listed below
+    weekendNights: [5, 6],                   // 0 = Sunday … 6 = Saturday (Fri + Sat nights)
+    weeklyDiscount: { minNights: 7, percent: 10 },
+    // Flat price for minNights…perNights nights, pro rata beyond that. Set to null to disable.
+    monthly: { minNights: 28, price: 3100, perNights: 30 },
+    monthlyNote: {
+      en: 'Electricity charged separately at the government rate',
+      nl: 'Elektriciteit apart, tegen het overheidstarief'
+    }
+  },
+  fees: { cleaning: 30 },                    // PLACEHOLDER
+  minNights: 2,                              // PLACEHOLDER
+  maxGuests: 10,
+  bookingWindowMonths: 6,                    // how far ahead guests can book
+
+  /* ---- Contact: PLACEHOLDER, replace before going live ---- */
+  whatsapp: '+66 00 000 0000',
+  email: 'stay@example.com',
+
+  /* ---- Availability ----
+     null = demo mode (seeded fake bookings plus a "Demo availability" badge).
+     Set to your Cloudflare Worker URL to use real iCal data; see getBlockedDates(). */
+  icalProxyUrl: null,
+  demoSeed: 1848,                            // change for a different (but stable) demo pattern
+
+  checkIn: '15:00',                          // PLACEHOLDER
+  checkOut: '11:00',                         // PLACEHOLDER
+
+  /* ---- Photos ----
+     Rooms become the filter chips (only rooms that have photos are shown).
+     `photos` order = gallery order. The first ~14 show under "All" before "View all". */
+  heroPhoto: 'living-01.jpg',
+  locationPhoto: 'area-03.jpg',
+  galleryPreview: 14,
+  rooms: [
+    { id: 'living',    label: { en: 'Living',    nl: 'Woonkamer' } },
+    { id: 'bedrooms',  label: { en: 'Bedrooms',  nl: 'Slaapkamers' } },
+    { id: 'kitchen',   label: { en: 'Kitchen',   nl: 'Keuken' } },
+    { id: 'bathrooms', label: { en: 'Bathrooms', nl: 'Badkamers' } },
+    { id: 'area',      label: { en: 'Area',      nl: 'Omgeving' } }
+  ],
+  photos: [
+    { file: 'living-01.jpg',   room: 'living',    caption: { en: 'Living room', nl: 'Woonkamer' },
+      alt: { en: 'Living room with a beige L-shaped sofa, a pendant lamp and a dark panelled wall', nl: 'Woonkamer met een beige hoekbank, een hanglamp en een donkere lambrisering' } },
+    { file: 'bedroom1-01.jpg', room: 'bedrooms',  caption: { en: 'Bedroom 1', nl: 'Slaapkamer 1' },
+      alt: { en: 'Bedroom with a king bed beside floor-to-ceiling windows', nl: 'Slaapkamer met een kingsize bed naast ramen van vloer tot plafond' } },
+    { file: 'living-02.jpg',   room: 'living',    caption: { en: 'Dining table', nl: 'Eettafel' },
+      alt: { en: 'Dining table set for dinner under two pendant lamps, with the sofa beyond', nl: 'Gedekte eettafel onder twee hanglampen, met de bank op de achtergrond' } },
+    { file: 'kitchen-01.jpg',  room: 'kitchen',   caption: { en: 'Kitchen', nl: 'Keuken' },
+      alt: { en: 'Long kitchen counter with wooden cabinets alongside the staircase', nl: 'Lang keukenblok met houten kasten langs de trap' } },
+    { file: 'bedroom2-01.jpg', room: 'bedrooms',  caption: { en: 'Bedroom 2', nl: 'Slaapkamer 2' },
+      alt: { en: 'Bright bedroom with a king bed and a queen bed', nl: 'Lichte slaapkamer met een kingsize en een queensize bed' } },
+    { file: 'bathroom-01.jpg', room: 'bathrooms', caption: { en: 'Bathroom', nl: 'Badkamer' },
+      alt: { en: 'Bathroom with a round basin, oval mirror and walk-in shower', nl: 'Badkamer met ronde wastafel, ovale spiegel en inloopdouche' } },
+    { file: 'living-03.jpg',   room: 'living',    caption: { en: 'Living room', nl: 'Woonkamer' },
+      alt: { en: 'Long view through the living room with sofa, Smart TV and herringbone floor', nl: 'Doorkijk door de woonkamer met bank, Smart TV en visgraatvloer' } },
+    { file: 'area-01.jpg',     room: 'area',      caption: { en: 'The front door', nl: 'De voordeur' },
+      alt: { en: 'Carved wooden front door with potted plants', nl: 'Houten voordeur met snijwerk en planten in potten' } },
+    { file: 'bedroom3-02.jpg', room: 'bedrooms',  caption: { en: 'Bedroom 3 and workspace', nl: 'Slaapkamer 3 met werkplek' },
+      alt: { en: 'Queen bed next to a desk with a lamp and office chair', nl: 'Queensize bed naast een bureau met lamp en bureaustoel' } },
+    { file: 'living-08.jpg',   room: 'living',    caption: { en: 'Balcony', nl: 'Balkon' },
+      alt: { en: 'Balcony with a small round table and chairs', nl: 'Balkon met een klein rond tafeltje en stoelen' } },
+    { file: 'kitchen-03.jpg',  room: 'kitchen',   caption: { en: 'Fully equipped kitchen', nl: 'Volledig uitgeruste keuken' },
+      alt: { en: 'Kitchen sink, cooktop and pans', nl: 'Spoelbak, kookplaat en pannen' } },
+    { file: 'bedroom1-02.jpg', room: 'bedrooms',  caption: { en: 'Bedroom 1', nl: 'Slaapkamer 1' },
+      alt: { en: 'Bedroom with a king bed, a queen bed, a tall mirror and a dark wood floor', nl: 'Slaapkamer met kingsize en queensize bed, hoge spiegel en donkere houten vloer' } },
+    { file: 'living-05.jpg',   room: 'living',    caption: { en: 'Dining area', nl: 'Eethoek' },
+      alt: { en: 'Dining area under pendant lamps looking towards the living room', nl: 'Eethoek onder hanglampen met zicht op de woonkamer' } },
+    { file: 'bathroom-02.jpg', room: 'bathrooms', caption: { en: 'Bathroom', nl: 'Badkamer' },
+      alt: { en: 'Bathroom with glass shower, oval mirror and a window', nl: 'Badkamer met glazen douche, ovale spiegel en een raam' } },
+    { file: 'living-04.jpg',   room: 'living',    caption: { en: 'Living room', nl: 'Woonkamer' },
+      alt: { en: 'L-shaped sofa along the panelled wall', nl: 'Hoekbank langs de lambrisering' } },
+    { file: 'living-06.jpg',   room: 'living',    caption: { en: 'The sofa', nl: 'De bank' },
+      alt: { en: 'Sofa with white cushions and a floor lamp', nl: 'Bank met witte kussens en een staande lamp' } },
+    { file: 'living-07.jpg',   room: 'living',    caption: { en: 'Ground floor', nl: 'Begane grond' },
+      alt: { en: 'Ground floor with the dining table, fridge and kitchen beyond', nl: 'Begane grond met eettafel, koelkast en keuken' } },
+    { file: 'living-09.jpg',   room: 'living',    caption: { en: 'Details', nl: 'Details' },
+      alt: { en: 'Wall of framed photographs', nl: 'Wand met ingelijste foto’s' } },
+    { file: 'kitchen-02.jpg',  room: 'kitchen',   caption: { en: 'Kitchen', nl: 'Keuken' },
+      alt: { en: 'Kitchen with sink, hanging utensils and wooden cabinets', nl: 'Keuken met spoelbak, hangend keukengerei en houten kasten' } },
+    { file: 'kitchen-04.jpg',  room: 'kitchen',   caption: { en: 'Kitchen', nl: 'Keuken' },
+      alt: { en: 'Kitchen seen from the back of the house towards the living room', nl: 'Keuken gezien vanaf de achterkant richting de woonkamer' } },
+    { file: 'kitchen-05.jpg',  room: 'kitchen',   caption: { en: 'Laundry', nl: 'Wasruimte' },
+      alt: { en: 'Laundry corner with a washing machine', nl: 'Washoek met wasmachine' } },
+    { file: 'bedroom1-03.jpg', room: 'bedrooms',  caption: { en: 'Bedroom 1', nl: 'Slaapkamer 1' },
+      alt: { en: 'King bed and queen bed side by side with framed prints above', nl: 'Kingsize en queensize bed naast elkaar met ingelijste prints erboven' } },
+    { file: 'bedroom1-04.jpg', room: 'bedrooms',  caption: { en: 'Bedroom 1', nl: 'Slaapkamer 1' },
+      alt: { en: 'King bed with folded towels in front of a large window', nl: 'Kingsize bed met opgevouwen handdoeken voor een groot raam' } },
+    { file: 'bedroom1-05.jpg', room: 'bedrooms',  caption: { en: 'Bedroom 1', nl: 'Slaapkamer 1' },
+      alt: { en: 'Side table with flowers and a framed print by the balcony door', nl: 'Bijzettafel met bloemen en een ingelijste print bij de balkondeur' } },
+    { file: 'bedroom2-02.jpg', room: 'bedrooms',  caption: { en: 'Bedroom 2', nl: 'Slaapkamer 2' },
+      alt: { en: 'King bed facing a large window with trees outside', nl: 'Kingsize bed bij een groot raam met bomen buiten' } },
+    { file: 'bedroom2-03.jpg', room: 'bedrooms',  caption: { en: 'Bedroom 2', nl: 'Slaapkamer 2' },
+      alt: { en: 'Floor-to-ceiling window beside the bed', nl: 'Raam van vloer tot plafond naast het bed' } },
+    { file: 'bedroom2-04.jpg', room: 'bedrooms',  caption: { en: 'Bedroom 2', nl: 'Slaapkamer 2' },
+      alt: { en: 'Bedroom seen from the door, with a tall mirror and clothes rack', nl: 'Slaapkamer gezien vanaf de deur, met hoge spiegel en kledingrek' } },
+    { file: 'bedroom3-01.jpg', room: 'bedrooms',  caption: { en: 'Bedroom 3', nl: 'Slaapkamer 3' },
+      alt: { en: 'Bedroom with a grey sofa bed and a queen bed', nl: 'Slaapkamer met een grijze slaapbank en een queensize bed' } },
+    { file: 'bedroom3-03.jpg', room: 'bedrooms',  caption: { en: 'Bedroom 3', nl: 'Slaapkamer 3' },
+      alt: { en: 'Queen bed and wardrobe', nl: 'Queensize bed en kledingkast' } },
+    { file: 'bathroom-03.jpg', room: 'bathrooms', caption: { en: 'Guest bathroom', nl: 'Gastenbadkamer' },
+      alt: { en: 'Bathroom with a white vessel basin and mirror', nl: 'Badkamer met een witte opzetwastafel en spiegel' } },
+    { file: 'bathroom-04.jpg', room: 'bathrooms', caption: { en: 'Bathroom details', nl: 'Details badkamer' },
+      alt: { en: 'Basin with a tall tap and toiletries', nl: 'Wastafel met hoge kraan en toiletartikelen' } },
+    { file: 'area-02.jpg',     room: 'area',      caption: { en: 'Self check-in', nl: 'Zelf inchecken' },
+      alt: { en: 'Keypad lock on the front door', nl: 'Codeslot op de voordeur' } },
+    { file: 'area-03.jpg',     room: 'area',      caption: { en: 'The BTS Skytrain nearby', nl: 'De BTS Skytrain vlakbij' },
+      alt: { en: 'Street corner with the elevated BTS Skytrain line overhead', nl: 'Straathoek met de verhoogde BTS Skytrain erboven' } },
+    { file: 'area-04.jpg',     room: 'area',      caption: { en: 'Around the corner', nl: 'Om de hoek' },
+      alt: { en: 'Wide road beneath the elevated BTS line', nl: 'Brede weg onder de verhoogde BTS-lijn' } },
+    { file: 'area-05.jpg',     room: 'area',      caption: { en: 'The neighbourhood', nl: 'De buurt' },
+      alt: { en: 'Local street with shops, trees and a small shrine', nl: 'Straat in de buurt met winkels, bomen en een klein altaar' } }
+  ],
+
+  /* ---- The house ---- */
+  houseTitle: { en: 'A whole house, just for you', nl: 'Een heel huis, helemaal voor jullie' },
+  houseText: {
+    en: [
+      'An entire 160 m² townhouse over three floors, newly renovated. Up to ten guests have the place to themselves.',
+      'The ground floor is one long living space with an L-shaped sofa, a Smart TV, a dining table and a fully equipped kitchen. Upstairs are three bedrooms. There are three bathrooms, air conditioning throughout, fast WiFi and a proper desk for work.',
+      'The house is on a quiet residential street with a direct connection to Sukhumvit and Thong Lo.'
+    ],
+    nl: [
+      'Een compleet herenhuis van 160 m² over drie verdiepingen, pas gerenoveerd. Tot tien gasten hebben het hele huis voor zichzelf.',
+      'Beneden is één lange leefruimte met een hoekbank, een Smart TV, een eettafel en een volledig uitgeruste keuken. Boven liggen drie slaapkamers. Er zijn drie badkamers, airco in het hele huis, snelle wifi en een echte werkplek.',
+      'Het huis ligt in een rustige woonstraat met een directe verbinding naar Sukhumvit en Thong Lo.'
+    ]
+  },
+  // Bed types: king, queen, double, single, sofa, bunk (labels live in DICT)
+  bedrooms: [
+    { name: { en: 'Bedroom 1', nl: 'Slaapkamer 1' }, floor: { en: '2nd floor', nl: '1e verdieping' }, photo: 'bedroom1-01.jpg',
+      beds: [{ type: 'king', count: 1 }, { type: 'queen', count: 1 }] },
+    { name: { en: 'Bedroom 2', nl: 'Slaapkamer 2' }, floor: { en: '3rd floor', nl: '2e verdieping' }, photo: 'bedroom2-01.jpg',
+      beds: [{ type: 'king', count: 1 }, { type: 'queen', count: 1 }] },
+    { name: { en: 'Bedroom 3', nl: 'Slaapkamer 3' }, floor: { en: '3rd floor', nl: '2e verdieping' }, photo: 'bedroom3-01.jpg',
+      beds: [{ type: 'queen', count: 1 }, { type: 'sofa', count: 1 }] }
+  ],
+
+  /* ---- Amenities: icon names are the keys of ICONS in the script below ---- */
+  amenities: [
+    { icon: 'wifi',     label: { en: 'High-speed WiFi',              nl: 'Snelle wifi' } },
+    { icon: 'tv',       label: { en: 'Smart TV with streaming',      nl: 'Smart TV met streaming' } },
+    { icon: 'snow',     label: { en: 'Air conditioning throughout',  nl: 'Airco in het hele huis' } },
+    { icon: 'pot',      label: { en: 'Fully equipped kitchen',       nl: 'Volledig uitgeruste keuken' } },
+    { icon: 'washer',   label: { en: 'Washing machine',              nl: 'Wasmachine' } },
+    { icon: 'laptop',   label: { en: 'Dedicated workspace',          nl: 'Eigen werkplek' } },
+    { icon: 'dice',     label: { en: 'Board games',                  nl: 'Bordspellen' } },
+    { icon: 'keypad',   label: { en: 'Self check-in with keypad',    nl: 'Zelf inchecken met codeslot' } },
+    { icon: 'scooter',  label: { en: 'Motorbike parking (no cars)',  nl: 'Parkeren voor motoren (geen auto’s)' } },
+    { icon: 'plane',    label: { en: 'Airport transfer on request',  nl: 'Luchthavenvervoer op aanvraag' } }
+  ],
+
+  /* ---- Location: the exact address stays private ---- */
+  neighbourhood: { en: 'Thong Lo, Sukhumvit, Bangkok', nl: 'Thong Lo, Sukhumvit, Bangkok' },
+  locationTitle: { en: 'Thong Lo, on foot', nl: 'Thong Lo, te voet' },
+  locationIntro: {
+    en: 'One of Bangkok’s most liveable neighbourhoods. Restaurants, cafés, bars, street food, massage and pharmacies are all a short walk away, and the Skytrain takes you across the city.',
+    nl: 'Een van de prettigste wijken van Bangkok. Restaurants, cafés, bars, streetfood, massage en apotheken liggen op loopafstand, en met de Skytrain ben je zo in de rest van de stad.'
+  },
+  // time: { walk: minutes } | { stops: n } (by BTS/train) | { text: {en, nl} }
+  places: [
+    { name: { en: 'BTS Thong Lo', nl: 'BTS Thong Lo' },                        time: { walk: 3 } },
+    { name: { en: '7-Eleven', nl: '7-Eleven' },                                time: { walk: 2 } },
+    { name: { en: 'Restaurants, cafés and bars', nl: 'Restaurants, cafés en bars' }, time: { text: { en: 'Walking distance', nl: 'Op loopafstand' } } },
+    { name: { en: 'Street food', nl: 'Streetfood' },                            time: { text: { en: 'Walking distance', nl: 'Op loopafstand' } } },
+    { name: { en: 'Massage and pharmacies', nl: 'Massage en apotheken' },       time: { text: { en: 'Walking distance', nl: 'Op loopafstand' } } },
+    { name: { en: 'EmQuartier', nl: 'EmQuartier' },                            time: { stops: 1 } },
+    { name: { en: 'Terminal 21 and Asok', nl: 'Terminal 21 en Asok' },          time: { stops: 2 } },
+    { name: { en: 'Siam', nl: 'Siam' },                                        time: { stops: 6 } }
+  ],
+
+  /* ---- Reviews ----
+     PLACEHOLDER REVIEWS: paste real guest reviews, then set placeholder: false.
+     Never publish invented reviews as real ones. */
+  rating: { score: '5.0', label: { en: 'Guest Favourite on Airbnb · top 10% of homes', nl: 'Guest Favourite op Airbnb · top 10% van de woningen' } },
+  reviews: [
+    { placeholder: true, author: 'Guest name', date: { en: 'Month 2026', nl: 'Maand 2026' },
+      text: { en: 'Paste a real guest review here. Two or three sentences about the house, the location or the host read best.', nl: 'Plak hier een echte gastreview. Twee of drie zinnen over het huis, de ligging of de host lezen het prettigst.' } },
+    { placeholder: true, author: 'Guest name', date: { en: 'Month 2026', nl: 'Maand 2026' },
+      text: { en: 'Paste a second real guest review here.', nl: 'Plak hier een tweede echte gastreview.' } },
+    { placeholder: true, author: 'Guest name', date: { en: 'Month 2026', nl: 'Maand 2026' },
+      text: { en: 'Paste a third real guest review here.', nl: 'Plak hier een derde echte gastreview.' } }
+  ],
+
+  /* ---- Good to know ---- */
+  selfCheckIn: { en: 'Keypad', nl: 'Codeslot' },
+  houseRules: {                              // PLACEHOLDER: confirm with the owner
+    en: ['No smoking indoors', 'No parties or events', 'Quiet hours from 22:00', 'Maximum 10 guests'],
+    nl: ['Niet roken binnen', 'Geen feesten of evenementen', 'Stilte vanaf 22:00', 'Maximaal 10 gasten']
+  },
+  faq: [
+    { q: { en: 'How does booking direct work?', nl: 'Hoe werkt direct boeken?' },
+      a: { en: 'Choose your dates, then send a request by WhatsApp or email. The host confirms availability and the next steps within a few hours.', nl: 'Kies je data en stuur een aanvraag via WhatsApp of e-mail. De host bevestigt binnen een paar uur de beschikbaarheid en de volgende stappen.' } },
+    { q: { en: 'Is electricity included?', nl: 'Is elektriciteit inbegrepen?' },
+      a: { en: 'Yes, for short stays. Monthly stays pay electricity at the government rate, with no markup.', nl: 'Ja, bij korte verblijven. Bij maandverblijven betaal je elektriciteit tegen het overheidstarief, zonder opslag.' } },
+    { q: { en: 'How do I get in?', nl: 'Hoe kom ik binnen?' },
+      a: { en: 'Self check-in with a keypad on the front door. You’ll receive the code before you arrive.', nl: 'Je checkt zelf in met een codeslot op de voordeur. De code ontvang je voor aankomst.' } },
+    { q: { en: 'Is there parking?', nl: 'Is er parkeergelegenheid?' },
+      a: { en: 'There’s parking for motorbikes, but no car parking.', nl: 'Er is plek voor motoren, maar geen parkeerplek voor auto’s.' } },
+    { q: { en: 'Can you arrange an airport transfer?', nl: 'Kunnen jullie vervoer van het vliegveld regelen?' },
+      a: { en: 'Yes, on request. Mention it when you send your booking request.', nl: 'Ja, op aanvraag. Vermeld het in je boekingsaanvraag.' } },
+    { q: { en: 'Any tips for the city?', nl: 'Tips voor de stad?' },
+      a: { en: 'You’ll receive a personal Bangkok guidebook from the host.', nl: 'Je krijgt een persoonlijke Bangkok-gids van de host.' } }
+  ],
+
+  credit: { name: 'BJF Webdesign', url: null }   // footer credit; url optional
+};
+
+/* =====================================================================
+   DICT: interface text, shared by every client site. Rarely edited.
+   {name} placeholders are filled by t().
+   ===================================================================== */
+const DICT = {
+  en: {
+    locale: 'en-GB', skip: 'Skip to content', navLabel: 'Sections', langLabel: 'Language',
+    navGallery: 'Photos', navHouse: 'The house', navLocation: 'Location', navReviews: 'Reviews', navInfo: 'Good to know',
+    ctaAvailability: 'Check availability',
+    galleryEyebrow: 'Photos', galleryTitle: 'A look inside', galleryFilter: 'Filter photos by room', filterAll: 'All',
+    viewAll: 'View all {n} photos', viewLess: 'Show fewer photos', openPhoto: 'Open photo: {alt}',
+    houseEyebrow: 'The house', sleepTitle: 'Where you’ll sleep',
+    bed_king: 'king bed', bed_queen: 'queen bed', bed_double: 'double bed', bed_single: 'single bed', bed_sofa: 'sofa bed', bed_bunk: 'bunk bed',
+    amenEyebrow: 'Amenities', amenTitle: 'What’s here',
+    locEyebrow: 'Location', minWalk: '{n} min walk', stopsOne: '1 stop by BTS', stopsMany: '{n} stops by BTS',
+    addressPrivate: 'The exact address is shared once your booking is confirmed.',
+    reviewsEyebrow: 'Guest reviews', sampleReview: 'Sample review', outOf5: 'out of 5',
+    availEyebrow: 'Availability & rates', availTitle: 'Choose your dates',
+    demoBadge: 'Demo availability', prevMonth: 'Previous month', nextMonth: 'Next month',
+    legendFree: 'Available', legendBooked: 'Booked', legendSel: 'Your stay',
+    stPickIn: 'Select your check-in date.', stPickOut: 'Now select your check-out date. Minimum stay: {n} nights.',
+    stDone: '{n} nights selected.', stMin: 'The minimum stay is {n} nights.',
+    stBooked: 'Those dates include booked nights. Try a shorter stay or other dates.',
+    stUnavailable: 'That date isn’t available.', stLoadErr: 'Live availability couldn’t load. Send a request and the host will confirm.',
+    dayBooked: 'booked', dayUnavailable: 'unavailable', dayCheckoutOnly: 'check-out only', dayCheckin: 'check-in', dayCheckout: 'check-out',
+    ratesTitle: 'Rates', rWeekday: 'Weekday', rWeekend: 'Weekend', rWeekly: 'Weekly stays', rMonthly: 'Monthly stays', rCleaning: 'Cleaning fee', rMin: 'Minimum stay',
+    rNightsPlus: '{n}+ nights', rPerNight: '{p} / night', rPercentOff: '{n}% off', rPerMonth: '{p} / month', rPerStay: '{p} per stay', rNights: '{n} nights',
+    panelLabel: 'Booking request', fromNight: 'From {p}', perNight: '/ night',
+    checkin: 'Check-in', checkout: 'Check-out', addDate: 'Add date', guests: 'Guests', guestsMax: 'Max {n}',
+    fewer: 'Fewer guests', more: 'More guests',
+    wkdayOne: '1 weekday night × {p}', wkdayMany: '{n} weekday nights × {p}',
+    wkendOne: '1 weekend night × {p}', wkendMany: '{n} weekend nights × {p}',
+    weeklyLine: 'Weekly discount ({n}%)', monthlyLine: 'Monthly rate · {n} nights', cleaningLine: 'Cleaning fee', totalLine: 'Total',
+    saveNote: 'Book direct and save vs. booking platforms', emptyQuote: 'Select dates to see the full price.',
+    reqWhatsapp: 'Request via WhatsApp', reqEmail: 'Request via email', confirmNote: 'Requests are confirmed by the host within a few hours.',
+    msgIntro: 'Hi! I’d like to request a stay at {name}.', msgIn: 'Check-in', msgOut: 'Check-out', msgNights: 'Nights', msgGuests: 'Guests',
+    msgTotal: 'Quoted total', msgInclCleaning: 'incl. cleaning fee', msgOutro: 'Could you confirm availability? Thank you!',
+    msgSubject: 'Booking request: {name}, {in} – {out}',
+    infoEyebrow: 'Good to know', infoTitle: 'Before you arrive', kCheckin: 'Check-in', kCheckout: 'Check-out', kSelf: 'Self check-in',
+    kFrom: 'from {t}', kUntil: 'until {t}', rulesTitle: 'House rules',
+    footContact: 'Contact', whatsapp: 'WhatsApp', emailLbl: 'Email', websiteBy: 'Website by {name}',
+    lbLabel: 'Photo viewer', close: 'Close', prevPhoto: 'Previous photo', nextPhoto: 'Next photo', photoOf: '{i} / {n}'
+  },
+  nl: {
+    locale: 'nl-NL', skip: 'Naar de inhoud', navLabel: 'Onderdelen', langLabel: 'Taal',
+    navGallery: 'Foto’s', navHouse: 'Het huis', navLocation: 'Ligging', navReviews: 'Reviews', navInfo: 'Goed om te weten',
+    ctaAvailability: 'Bekijk beschikbaarheid',
+    galleryEyebrow: 'Foto’s', galleryTitle: 'Een kijkje binnen', galleryFilter: 'Filter foto’s per ruimte', filterAll: 'Alles',
+    viewAll: 'Bekijk alle {n} foto’s', viewLess: 'Minder foto’s tonen', openPhoto: 'Open foto: {alt}',
+    houseEyebrow: 'Het huis', sleepTitle: 'Slapen',
+    bed_king: 'kingsize bed', bed_queen: 'queensize bed', bed_double: 'tweepersoonsbed', bed_single: 'eenpersoonsbed', bed_sofa: 'slaapbank', bed_bunk: 'stapelbed',
+    amenEyebrow: 'Voorzieningen', amenTitle: 'Wat er is',
+    locEyebrow: 'Ligging', minWalk: '{n} min lopen', stopsOne: '1 halte met de BTS', stopsMany: '{n} haltes met de BTS',
+    addressPrivate: 'Het exacte adres ontvang je zodra je boeking is bevestigd.',
+    reviewsEyebrow: 'Reviews van gasten', sampleReview: 'Voorbeeldreview', outOf5: 'van de 5',
+    availEyebrow: 'Beschikbaarheid & prijzen', availTitle: 'Kies je data',
+    demoBadge: 'Demo-beschikbaarheid', prevMonth: 'Vorige maand', nextMonth: 'Volgende maand',
+    legendFree: 'Beschikbaar', legendBooked: 'Geboekt', legendSel: 'Jouw verblijf',
+    stPickIn: 'Kies je incheckdatum.', stPickOut: 'Kies nu je uitcheckdatum. Minimaal verblijf: {n} nachten.',
+    stDone: '{n} nachten geselecteerd.', stMin: 'Het minimale verblijf is {n} nachten.',
+    stBooked: 'Deze periode bevat geboekte nachten. Kies een korter verblijf of andere data.',
+    stUnavailable: 'Deze datum is niet beschikbaar.', stLoadErr: 'De actuele beschikbaarheid kon niet worden geladen. Stuur een aanvraag, de host bevestigt.',
+    dayBooked: 'geboekt', dayUnavailable: 'niet beschikbaar', dayCheckoutOnly: 'alleen uitchecken', dayCheckin: 'inchecken', dayCheckout: 'uitchecken',
+    ratesTitle: 'Prijzen', rWeekday: 'Doordeweeks', rWeekend: 'Weekend', rWeekly: 'Weekverblijf', rMonthly: 'Maandverblijf', rCleaning: 'Schoonmaakkosten', rMin: 'Minimaal verblijf',
+    rNightsPlus: '{n}+ nachten', rPerNight: '{p} per nacht', rPercentOff: '{n}% korting', rPerMonth: '{p} per maand', rPerStay: '{p} per verblijf', rNights: '{n} nachten',
+    panelLabel: 'Boekingsaanvraag', fromNight: 'Vanaf {p}', perNight: 'per nacht',
+    checkin: 'Inchecken', checkout: 'Uitchecken', addDate: 'Kies datum', guests: 'Gasten', guestsMax: 'Max. {n}',
+    fewer: 'Minder gasten', more: 'Meer gasten',
+    wkdayOne: '1 doordeweekse nacht × {p}', wkdayMany: '{n} doordeweekse nachten × {p}',
+    wkendOne: '1 weekendnacht × {p}', wkendMany: '{n} weekendnachten × {p}',
+    weeklyLine: 'Weekkorting ({n}%)', monthlyLine: 'Maandprijs · {n} nachten', cleaningLine: 'Schoonmaakkosten', totalLine: 'Totaal',
+    saveNote: 'Direct boeken is voordeliger dan via boekingsplatforms', emptyQuote: 'Kies je data om de totaalprijs te zien.',
+    reqWhatsapp: 'Aanvragen via WhatsApp', reqEmail: 'Aanvragen via e-mail', confirmNote: 'De host bevestigt aanvragen binnen een paar uur.',
+    msgIntro: 'Hallo! Ik wil graag een verblijf aanvragen bij {name}.', msgIn: 'Inchecken', msgOut: 'Uitchecken', msgNights: 'Nachten', msgGuests: 'Gasten',
+    msgTotal: 'Totaalprijs volgens de website', msgInclCleaning: 'incl. schoonmaakkosten', msgOutro: 'Kun je de beschikbaarheid bevestigen? Alvast bedankt!',
+    msgSubject: 'Boekingsaanvraag: {name}, {in} – {out}',
+    infoEyebrow: 'Goed om te weten', infoTitle: 'Voor je aankomst', kCheckin: 'Inchecken', kCheckout: 'Uitchecken', kSelf: 'Zelf inchecken',
+    kFrom: 'vanaf {t}', kUntil: 'tot {t}', rulesTitle: 'Huisregels',
+    footContact: 'Contact', whatsapp: 'WhatsApp', emailLbl: 'E-mail', websiteBy: 'Website door {name}',
+    lbLabel: 'Fotoweergave', close: 'Sluiten', prevPhoto: 'Vorige foto', nextPhoto: 'Volgende foto', photoOf: '{i} / {n}'
+  }
+};
+
+/* Line icons (24×24, stroke). Extra icons for other properties are ready to use. */
+const ICONS = {
+  wifi:    '<path d="M2.5 8.8a14 14 0 0 1 19 0"/><path d="M5.6 12.2a9.5 9.5 0 0 1 12.8 0"/><path d="M8.8 15.5a5 5 0 0 1 6.4 0"/><circle cx="12" cy="19" r=".9" fill="currentColor"/>',
+  tv:      '<rect x="3" y="4.5" width="18" height="12.5" rx="1.5"/><path d="M8.5 20.5h7M12 17v3.5"/>',
+  snow:    '<path d="M12 2.5v19M3.8 7.2l16.4 9.6M3.8 16.8l16.4-9.6"/><path d="M9.5 4.2 12 6l2.5-1.8M9.5 19.8 12 18l2.5 1.8"/>',
+  pot:     '<path d="M4.5 10.5h15v5.5a4 4 0 0 1-4 4h-7a4 4 0 0 1-4-4z"/><path d="M2.5 10.5h2M19.5 10.5h2M9.5 7c0-1.2 1-1.3 1-2.5M13.5 7c0-1.2 1-1.3 1-2.5"/>',
+  washer:  '<rect x="4" y="2.5" width="16" height="19" rx="2"/><circle cx="12" cy="13.5" r="4.5"/><path d="M7.5 6h.01M10.5 6h3"/>',
+  laptop:  '<rect x="4.5" y="5" width="15" height="10" rx="1"/><path d="M2.5 18.5h19"/>',
+  dice:    '<rect x="3.5" y="3.5" width="17" height="17" rx="3"/><circle cx="8.5" cy="8.5" r=".9" fill="currentColor"/><circle cx="12" cy="12" r=".9" fill="currentColor"/><circle cx="15.5" cy="15.5" r=".9" fill="currentColor"/>',
+  keypad:  '<rect x="5.5" y="2.5" width="13" height="19" rx="2"/><path d="M9 7.5h.01M12 7.5h.01M15 7.5h.01M9 11h.01M12 11h.01M15 11h.01M9 14.5h.01M12 14.5h.01M15 14.5h.01" stroke-width="2.2" stroke-linecap="round"/><path d="M10 18h4"/>',
+  scooter: '<circle cx="6" cy="17" r="2.8"/><circle cx="18" cy="17" r="2.8"/><path d="M8.8 17h5.4l2.3-7.5H19M14 9.5h-4l-1.5 4.5M16.5 9.5l-1-3.5H13"/>',
+  plane:   '<path d="M21 15.5v-1.6l-7.5-4.6V4a1.5 1.5 0 0 0-3 0v5.3L3 13.9v1.6l7.5-2.3v4.7l-2 1.5v1.3l3.5-1 3.5 1v-1.3l-2-1.5v-4.7z"/>',
+  flame:   '<path d="M12 21.5c3.9 0 6.5-2.6 6.5-6.2 0-4.3-3.6-6.3-4.5-10.8-2.4 1.9-3.4 4.3-3.3 6.6-1-.6-1.8-1.7-2-2.9-1.7 1.8-3.2 4.2-3.2 7.1 0 3.6 2.6 6.2 6.5 6.2z"/>',
+  tree:    '<path d="M12 21.5v-6"/><path d="M12 2.5 5.5 11h3L5 15.5h14L15.5 11h3z"/>',
+  car:     '<path d="M4 16.5V12l2-5h12l2 5v4.5M4 16.5h16M4 16.5V19M20 16.5V19"/><circle cx="7.5" cy="13.5" r=".9" fill="currentColor"/><circle cx="16.5" cy="13.5" r=".9" fill="currentColor"/>',
+  bike:    '<circle cx="5.5" cy="16.5" r="3.5"/><circle cx="18.5" cy="16.5" r="3.5"/><path d="M5.5 16.5 9 9h6l3.5 7.5M12 16.5 9 9M15 9l-1-2.5h-2"/>',
+  paw:     '<circle cx="7" cy="9" r="1.8"/><circle cx="17" cy="9" r="1.8"/><circle cx="10" cy="5.5" r="1.6"/><circle cx="14" cy="5.5" r="1.6"/><path d="M12 12c-3 0-5.5 3.5-5.5 5.5 0 2 2 2.5 3 2l2.5-1 2.5 1c1 .5 3 0 3-2 0-2-2.5-5.5-5.5-5.5z"/>',
+  bath:    '<path d="M3 12h18v2a5 5 0 0 1-5 5H8a5 5 0 0 1-5-5zM6 12V5.5A2 2 0 0 1 8 3.5c1 0 1.7.6 2 1.5M7 19l-1 2M17 19l1 2"/>',
+  coffee:  '<path d="M4.5 9h12v5.5a5 5 0 0 1-5 5h-2a5 5 0 0 1-5-5zM16.5 11h1.5a2.5 2.5 0 0 1 0 5h-1.8M8 3.5v2.5M12 3.5v2.5"/>',
+  // interface icons
+  whatsapp:'<path d="M3.5 20.5l1.3-4.2A8.5 8.5 0 1 1 8 19.5z"/><path d="M9 8.5c0 3.3 3.2 6.5 6.5 6.5l1-1.5-2-1-1 .8a5 5 0 0 1-2.8-2.8l.8-1-1-2z"/>',
+  mail:    '<rect x="3" y="5" width="18" height="14" rx="1.5"/><path d="m3.5 6 8.5 7 8.5-7"/>',
+  pin:     '<path d="M12 21.5s-6.5-6.2-6.5-11.5a6.5 6.5 0 0 1 13 0c0 5.3-6.5 11.5-6.5 11.5z"/><circle cx="12" cy="10" r="2.3"/>',
+  lock:    '<rect x="5" y="10.5" width="14" height="10" rx="1.5"/><path d="M8 10.5V7.5a4 4 0 0 1 8 0v3"/>',
+  tag:     '<path d="M3 12.5V4h8.5l9 9-8.5 8.5z"/><circle cx="7.5" cy="8.5" r="1.3"/>',
+  star:    '<path d="m12 3 2.7 5.6 6.1.8-4.5 4.2 1.1 6.1L12 16.8l-5.4 2.9 1.1-6.1-4.5-4.2 6.1-.8z" fill="currentColor" stroke="none"/>',
+  minus:   '<path d="M6 12h12"/>',
+  plus:    '<path d="M6 12h12M12 6v12"/>'
+};
+const BED_ICONS = {
+  king:   '<svg viewBox="0 0 30 20" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M2 17V5M28 17V5M2 12h26M2 15h26"/><rect x="5" y="7.5" width="9" height="4.5" rx="1.2"/><rect x="16" y="7.5" width="9" height="4.5" rx="1.2"/></svg>',
+  queen:  '<svg viewBox="0 0 30 20" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M5 17V6M25 17V6M5 12h20M5 15h20"/><rect x="7.5" y="8" width="7" height="4" rx="1.2"/><rect x="15.5" y="8" width="7" height="4" rx="1.2"/></svg>',
+  double: '<svg viewBox="0 0 30 20" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M5 17V6M25 17V6M5 12h20M5 15h20"/><rect x="7.5" y="8" width="7" height="4" rx="1.2"/><rect x="15.5" y="8" width="7" height="4" rx="1.2"/></svg>',
+  single: '<svg viewBox="0 0 30 20" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M9 17V6M21 17V6M9 12h12M9 15h12"/><rect x="11" y="8" width="8" height="4" rx="1.2"/></svg>',
+  sofa:   '<svg viewBox="0 0 30 20" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M5 10V7a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v3"/><path d="M3 10.5a1.8 1.8 0 0 1 3.5 0V13h17v-2.5a1.8 1.8 0 0 1 3.5 0V16H3z"/><path d="M5 16v2M25 16v2"/></svg>',
+  bunk:   '<svg viewBox="0 0 30 20" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M8 19V1M22 19V1M8 7h14M8 16h14"/><rect x="10" y="4" width="5" height="3" rx="1"/><rect x="10" y="13" width="5" height="3" rx="1"/></svg>'
+};
+
+/* =====================================================================
+   Everything below is the template engine. No client data.
+   ===================================================================== */
+
+/* ---------- Date helpers (all dates are local midnight) ---------- */
+const DAY_MS = 864e5;
+const pad = n => String(n).padStart(2, '0');
+const dkey = d => `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
+const parseKey = k => { const [y, m, d] = k.split('-').map(Number); return new Date(y, m - 1, d); };
+const addDays = (d, n) => new Date(d.getFullYear(), d.getMonth(), d.getDate() + n);
+const addMonths = (d, n) => new Date(d.getFullYear(), d.getMonth() + n, 1);
+const daysBetween = (a, b) => Math.round((b - a) / DAY_MS); // DST-safe for local midnights
+const startOfToday = () => { const n = new Date(); return new Date(n.getFullYear(), n.getMonth(), n.getDate()); };
+
+/* ---------- Seeded random generator (mulberry32) ---------- */
+function mulberry32(seed) {
+  let a = seed >>> 0;
+  return function () {
+    a = (a + 0x6D2B79F5) >>> 0;
+    let t = a;
+    t = Math.imul(t ^ (t >>> 15), t | 1);
+    t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+}
+
+/* Demo bookings: each week draws from its own seeded generator, anchored to a fixed
+   Monday, so a given week always gets the same bookings, whatever day the page loads.
+   Weekend stays are drawn more often than midweek ones (≈35–45% occupancy overall). */
+function demoRanges(today = startOfToday()) {
+  const anchor = new Date(2024, 0, 1);                       // a Monday
+  const end = addMonths(today, CONFIG.bookingWindowMonths + 1);
+  const taken = new Set();
+  const ranges = [];
+  const tryAdd = (start, len) => {
+    for (let i = 0; i < len; i++) if (taken.has(dkey(addDays(start, i)))) return;
+    for (let i = 0; i < len; i++) taken.add(dkey(addDays(start, i)));
+    ranges.push({ start: dkey(start), end: dkey(addDays(start, len)) });
+  };
+  for (let w = Math.floor(daysBetween(anchor, today) / 7) - 2; ; w++) {
+    const monday = addDays(anchor, w * 7);
+    if (monday > end) break;
+    const r = mulberry32(CONFIG.demoSeed * 7919 + w * 104729);
+    if (r() < 0.06) tryAdd(addDays(monday, Math.floor(r() * 4)), 8 + Math.floor(r() * 9));      // long stay
+    if (r() < 0.62) {                                                                           // weekend stay
+      const thu = r() < 0.3;
+      tryAdd(addDays(monday, thu ? 3 : 4), thu ? 3 + Math.floor(r() * 2) : 2 + (r() < 0.35 ? 1 : 0));
+    }
+    if (r() < 0.3) tryAdd(addDays(monday, Math.floor(r() * 2)), 2 + Math.floor(r() * 2));       // midweek stay
+  }
+  return ranges;
+}
+
+/* Turn [{start, end}] (end = check-out day, exclusive) into a Set of booked nights.
+   A night is named by its date: '2026-10-03' is the night of 3 → 4 October. */
+function rangesToNights(ranges) {
+  const nights = new Set();
+  for (const r of ranges || []) {
+    const s = r.start || r.from || r[0], e = r.end || r.to || r[1];
+    if (!s || !e) continue;
+    for (let d = parseKey(s.slice(0, 10)), stop = parseKey(e.slice(0, 10)); d < stop; d = addDays(d, 1)) nights.add(dkey(d));
+  }
+  return nights;
+}
+
+/* =====================================================================
+   AVAILABILITY: the ONLY place availability comes from.
+   ─ Demo mode (CONFIG.icalProxyUrl === null): seeded fake bookings.
+   ─ Live mode: set CONFIG.icalProxyUrl to your Cloudflare Worker. The Worker
+     reads the Airbnb/Booking iCal feeds and must return JSON like:
+         [ { "start": "2026-10-03", "end": "2026-10-06" }, … ]
+     where `end` is the check-out date (that night is NOT booked).
+     CORS must allow this site's origin.
+   Returns a Promise<Set<'YYYY-MM-DD'>> of booked nights.
+   ===================================================================== */
+async function getBlockedDates() {
+  if (CONFIG.icalProxyUrl) {
+    const res = await fetch(CONFIG.icalProxyUrl, { cache: 'no-store' });
+    if (!res.ok) throw new Error('Availability request failed: ' + res.status);
+    return rangesToNights(await res.json());
+  }
+  return rangesToNights(demoRanges());
+}
+
+/* ---------- Booking rules (pure functions, easy to test) ---------- */
+function validateRange(checkin, checkout, blocked, today = startOfToday()) {
+  if (!checkin || !checkout) return { ok: false, reason: 'incomplete' };
+  const nights = daysBetween(checkin, checkout);
+  if (nights <= 0) return { ok: false, reason: 'order' };
+  if (checkin < today) return { ok: false, reason: 'past' };
+  for (let i = 0; i < nights; i++) if (blocked.has(dkey(addDays(checkin, i)))) return { ok: false, reason: 'booked' };
+  if (nights < CONFIG.minNights) return { ok: false, reason: 'minNights' };
+  if (checkout > addMonths(today, CONFIG.bookingWindowMonths)) return { ok: false, reason: 'window' };
+  return { ok: true, nights };
+}
+
+function quote(checkin, checkout) {
+  const R = CONFIG.rates;
+  const nights = daysBetween(checkin, checkout);
+  let weekdayNights = 0, weekendNights = 0;
+  for (let i = 0; i < nights; i++) R.weekendNights.includes(addDays(checkin, i).getDay()) ? weekendNights++ : weekdayNights++;
+  const q = { nights, weekdayNights, weekendNights, weekdayAmount: 0, weekendAmount: 0, discount: 0, monthly: null, cleaning: CONFIG.fees.cleaning || 0 };
+  if (R.monthly && nights >= R.monthly.minNights) {
+    q.monthly = nights <= R.monthly.perNights ? R.monthly.price : Math.round(R.monthly.price / R.monthly.perNights * nights);
+    q.accommodation = q.monthly;
+  } else {
+    q.weekdayAmount = weekdayNights * R.weekday;
+    q.weekendAmount = weekendNights * R.weekend;
+    const sub = q.weekdayAmount + q.weekendAmount;
+    if (R.weeklyDiscount && nights >= R.weeklyDiscount.minNights) q.discount = Math.round(sub * R.weeklyDiscount.percent / 100);
+    q.accommodation = sub - q.discount;
+  }
+  q.total = q.accommodation + q.cleaning;
+  return q;
+}
+
+/* ---------- i18n ---------- */
+const state = { lang: DICT[CONFIG.defaultLanguage] ? CONFIG.defaultLanguage : 'en',
+  blocked: new Set(), checkin: null, checkout: null, guests: Math.min(2, CONFIG.maxGuests),
+  view: null, filter: 'all', expanded: false, status: null, loadError: false };
+
+function t(key, vars) {
+  let s = (DICT[state.lang] && DICT[state.lang][key]) ?? DICT.en[key] ?? key;
+  if (vars) for (const k in vars) s = s.split('{' + k + '}').join(vars[k]);
+  return s;
+}
+const L = v => (v == null ? '' : typeof v === 'string' ? v : (v[state.lang] ?? v.en ?? ''));
+const money = n => CONFIG.currency + new Intl.NumberFormat(t('locale'), { maximumFractionDigits: 0 }).format(Math.round(n));
+const fmtDate = (d, opts) => new Intl.DateTimeFormat(t('locale'), opts).format(d);
+const longDate = d => fmtDate(d, { weekday: 'short', day: 'numeric', month: 'short', year: 'numeric' });
+const esc = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const icon = (name, cls = '') => `<svg class="${cls}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICONS[name] || ''}</svg>`;
+
+/* ---------- Booking messages ---------- */
+function buildMessage(q) {
+  const lines = [
+    t('msgIntro', { name: CONFIG.propertyName }), '',
+    `${t('msgIn')}: ${longDate(state.checkin)}`,
+    `${t('msgOut')}: ${longDate(state.checkout)}`,
+    `${t('msgNights')}: ${q.nights}`,
+    `${t('msgGuests')}: ${state.guests}`,
+    `${t('msgTotal')}: ${money(q.total)} (${t('msgInclCleaning')})`
+  ];
+  if (q.monthly && CONFIG.rates.monthlyNote) lines.push(L(CONFIG.rates.monthlyNote) + '.');
+  lines.push('', t('msgOutro'));
+  return lines.join('\n');
+}
+const whatsappUrl = text => `https://wa.me/${CONFIG.whatsapp.replace(/\D/g, '')}?text=${encodeURIComponent(text)}`;
+const mailtoUrl = (subject, body) => `mailto:${CONFIG.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+
+/* =====================================================================
+   Rendering (browser only)
+   ===================================================================== */
+if (typeof document !== 'undefined') {
+  const $ = id => document.getElementById(id);
+  const mqDesktop = window.matchMedia('(min-width: 900px)');
+  const TODAY = startOfToday();
+  const FIRST_MONTH = new Date(TODAY.getFullYear(), TODAY.getMonth(), 1);
+  const LAST_MONTH = addMonths(FIRST_MONTH, CONFIG.bookingWindowMonths);  // the checkout-limit month
+  state.view = FIRST_MONTH;
+  document.documentElement.classList.add('js');
+
+  /* ----- static text ----- */
+  function applyStatic() {
+    document.documentElement.lang = state.lang;
+    document.title = `${CONFIG.propertyName} · ${L(CONFIG.neighbourhood)}`;
+    document.querySelector('meta[name="description"]').content = L(CONFIG.metaDescription);
+    document.querySelectorAll('[data-i18n]').forEach(el => { el.textContent = t(el.dataset.i18n); });
+    document.querySelectorAll('[data-i18n-aria]').forEach(el => el.setAttribute('aria-label', t(el.dataset.i18nAria)));
+    document.querySelectorAll('[data-config]').forEach(el => { el.textContent = L(CONFIG[el.dataset.config]); });
+    $('langSwitch').innerHTML = Object.keys(DICT).map(l =>
+      `<button type="button" data-lang="${l}" aria-pressed="${l === state.lang}" lang="${l}"><span>${l.toUpperCase()}</span></button>`).join('');
+  }
+
+  function renderHero() {
+    const hero = CONFIG.photos.find(p => p.file === CONFIG.heroPhoto) || CONFIG.photos[0];
+    const img = $('heroImg');
+    if (img.getAttribute('src') !== hero.file) img.src = hero.file;
+    img.alt = L(hero.alt);
+    $('heroFacts').innerHTML = L(CONFIG.facts).map(f => `<span>${esc(f)}</span>`).join('');
+    $('heroTagline').textContent = L(CONFIG.tagline);
+  }
+
+  /* ----- gallery ----- */
+  // Editorial pattern on a 12-column grid, repeating every 7 photos: [wide-tall, small, small] [panorama] [tall, wide, wide].
+  // Leftover photos at the end get shapes that still close the grid without gaps.
+  const PATTERN = [[7,2],[5,1],[5,1],[12,2],[5,2],[7,1],[7,1]];
+  const TAIL = { 1: [[12,2]], 2: [[7,2],[5,2]], 3: PATTERN.slice(0,3), 4: PATTERN.slice(0,4),
+                 5: [[7,2],[5,1],[5,1],[6,2],[6,2]], 6: [[7,2],[5,1],[5,1],[12,2],[7,2],[5,2]] };
+  function shapes(n) {
+    const out = [], full = n - (n % 7);
+    for (let i = 0; i < full; i++) out.push(PATTERN[i % 7]);
+    return out.concat(TAIL[n % 7] || []);
+  }
+  function mobileShapes(n) {       // 2 columns: one full-width, then a pair
+    const out = [];
+    for (let i = 0; i < n; i++) out.push(i % 3 === 0 || (i % 3 === 1 && i === n - 1) ? 2 : 1);
+    return out;
+  }
+  const filtered = () => CONFIG.photos.filter(p => state.filter === 'all' || p.room === state.filter);
+
+  function renderChips() {
+    const rooms = CONFIG.rooms.filter(r => CONFIG.photos.some(p => p.room === r.id));
+    $('chips').innerHTML = [{ id: 'all', label: t('filterAll') }, ...rooms.map(r => ({ id: r.id, label: L(r.label) }))]
+      .map(r => `<button type="button" class="chip" data-filter="${r.id}" aria-pressed="${state.filter === r.id}">${esc(r.label)}</button>`).join('');
+  }
+  function renderGallery() {
+    const all = filtered();
+    const limit = state.filter === 'all' && !state.expanded ? CONFIG.galleryPreview : all.length;
+    const list = all.slice(0, limit);
+    const s = shapes(list.length), m = mobileShapes(list.length);
+    $('grid').innerHTML = list.map((p, i) => `
+      <button type="button" class="tile" data-index="${i}" style="--c:${s[i][0]};--r:${s[i][1]};--mc:${m[i]}"
+        aria-label="${esc(t('openPhoto', { alt: L(p.alt) }))}">
+        <img src="${esc(p.file)}" alt="${esc(L(p.alt))}" loading="lazy" decoding="async">
+        <span class="cap" aria-hidden="true">${esc(L(p.caption))}</span>
+      </button>`).join('');
+    $('galleryMore').innerHTML = state.filter === 'all' && all.length > CONFIG.galleryPreview
+      ? `<button type="button" class="btn btn-line" id="moreBtn">${esc(state.expanded ? t('viewLess') : t('viewAll', { n: all.length }))}</button>` : '';
+  }
+
+  /* ----- house, amenities, location, reviews, info, footer ----- */
+  function renderContent() {
+    $('houseTitle').textContent = L(CONFIG.houseTitle);
+    $('houseText').innerHTML = L(CONFIG.houseText).map(p => `<p>${esc(p)}</p>`).join('');
+    $('sleep').innerHTML = CONFIG.bedrooms.map(b => {
+      const photo = CONFIG.photos.find(p => p.file === b.photo);
+      return `<li>
+        ${b.photo ? `<img src="${esc(b.photo)}" alt="${esc(photo ? L(photo.alt) : L(b.name))}" loading="lazy">` : '<span></span>'}
+        <div><h3>${esc(L(b.name))}</h3>${b.floor ? `<span class="floor">${esc(L(b.floor))}</span>` : ''}
+          <div class="beds">${b.beds.map(bed => `<span class="bed">${BED_ICONS[bed.type] || ''}${bed.count} ${esc(t('bed_' + bed.type))}</span>`).join('')}</div>
+        </div></li>`;
+    }).join('');
+
+    $('amenities-list').innerHTML = CONFIG.amenities.map(a => `<li>${icon(a.icon)}<span>${esc(L(a.label))}</span></li>`).join('');
+
+    const loc = CONFIG.photos.find(p => p.file === CONFIG.locationPhoto);
+    const locImg = $('locImg');
+    if (loc) { if (locImg.getAttribute('src') !== loc.file) locImg.src = loc.file; locImg.alt = L(loc.alt); $('locCap').textContent = L(CONFIG.neighbourhood); }
+    $('locTitle').textContent = L(CONFIG.locationTitle);
+    $('locIntro').textContent = L(CONFIG.locationIntro);
+    $('locPrivate').innerHTML = icon('pin') + `<span>${esc(L(CONFIG.neighbourhood))}. ${esc(t('addressPrivate'))}</span>`;
+    $('places').innerHTML = CONFIG.places.map(p => {
+      const tm = p.time.walk != null ? t('minWalk', { n: p.time.walk })
+        : p.time.stops != null ? (p.time.stops === 1 ? t('stopsOne') : t('stopsMany', { n: p.time.stops })) : L(p.time.text);
+      return `<li><span class="name">${esc(L(p.name))}</span><span class="dots" aria-hidden="true"></span><span class="time">${esc(tm)}</span></li>`;
+    }).join('');
+
+    const rt = CONFIG.rating;
+    $('rating').innerHTML = rt ? `<span class="score">${esc(rt.score)}</span><span class="visually-hidden">${esc(t('outOf5'))}</span>
+      <span class="stars" aria-hidden="true">${icon('star').repeat(5)}</span><span class="label">${esc(L(rt.label))}</span>` : '';
+    const list = $('reviewList');
+    list.innerHTML = '';
+    CONFIG.reviews.forEach(r => {
+      if (r.placeholder) list.appendChild(document.createComment(' PLACEHOLDER REVIEW '));
+      const card = document.createElement('article');
+      card.className = 'review' + (r.placeholder ? ' is-sample' : '');
+      card.innerHTML = `${r.placeholder ? `<span class="sample-tag">${esc(t('sampleReview'))}</span>` : ''}
+        <blockquote>${esc(L(r.text))}</blockquote>
+        <footer><strong>${esc(r.author)}</strong> · ${esc(L(r.date))}</footer>`;
+      list.appendChild(card);
+    });
+
+    $('keyfacts').innerHTML = `
+      <div><span>${esc(t('kCheckin'))}</span><strong>${esc(t('kFrom', { t: CONFIG.checkIn }))}</strong></div>
+      <div><span>${esc(t('kCheckout'))}</span><strong>${esc(t('kUntil', { t: CONFIG.checkOut }))}</strong></div>
+      <div><span>${esc(t('kSelf'))}</span><strong>${esc(L(CONFIG.selfCheckIn))}</strong></div>`;
+    $('accordion').innerHTML =
+      `<details><summary>${esc(t('rulesTitle'))}</summary><div class="body"><ul>${L(CONFIG.houseRules).map(r => `<li>${esc(r)}</li>`).join('')}</ul></div></details>` +
+      CONFIG.faq.map(f => `<details><summary>${esc(L(f.q))}</summary><div class="body"><p>${esc(L(f.a))}</p></div></details>`).join('');
+
+    $('footTag').textContent = L(CONFIG.neighbourhood);
+    $('footLinks').innerHTML = `
+      <a href="${whatsappUrl('')}" target="_blank" rel="noopener">${icon('whatsapp')}<span>${esc(t('whatsapp'))} · ${esc(CONFIG.whatsapp)}</span></a>
+      <a href="mailto:${esc(CONFIG.email)}">${icon('mail')}<span>${esc(CONFIG.email)}</span></a>`;
+    $('copyright').textContent = `© ${new Date().getFullYear()} ${CONFIG.propertyName}`;
+    const cr = CONFIG.credit;
+    $('credit').innerHTML = cr ? esc(t('websiteBy', { name: '\u0000' })).replace('\u0000',
+      cr.url ? `<a href="${esc(cr.url)}" target="_blank" rel="noopener">${esc(cr.name)}</a>` : esc(cr.name)) : '';
+    $('mbarFrom').innerHTML = `${esc(t('fromNight', { p: '' }))}<strong>${esc(money(Math.min(CONFIG.rates.weekday, CONFIG.rates.weekend)))}</strong> ${esc(t('perNight'))}`;
+  }
+
+  /* ----- rate table ----- */
+  function dayRange(days) {  // e.g. [0..4] → "Sun–Thu"
+    const name = d => fmtDate(new Date(2024, 0, 7 + d), { weekday: 'short' }).replace('.', '');
+    return days.length > 1 ? `${name(days[0])}–${name(days[days.length - 1])}` : name(days[0]);
+  }
+  function renderRates() {
+    const R = CONFIG.rates, we = R.weekendNights;
+    const wd = []; for (let i = 1; i <= 7 - we.length; i++) wd.push((we[we.length - 1] + i) % 7);
+    const rows = [
+      [t('rWeekday'), dayRange(wd), t('rPerNight', { p: money(R.weekday) })],
+      [t('rWeekend'), dayRange(we), t('rPerNight', { p: money(R.weekend) })]
+    ];
+    if (R.weeklyDiscount) rows.push([t('rWeekly'), t('rNightsPlus', { n: R.weeklyDiscount.minNights }), t('rPercentOff', { n: R.weeklyDiscount.percent })]);
+    if (R.monthly) rows.push([t('rMonthly'), `${t('rNightsPlus', { n: R.monthly.minNights })} · ${L(R.monthlyNote)}`, t('rPerMonth', { p: money(R.monthly.price) })]);
+    rows.push([t('rCleaning'), '', t('rPerStay', { p: money(CONFIG.fees.cleaning) })]);
+    rows.push([t('rMin'), '', t('rNights', { n: CONFIG.minNights })]);
+    $('rateTable').innerHTML = '<tbody>' + rows.map(r => `<tr><th scope="row">${esc(r[0])}${r[1] ? `<small>${esc(r[1])}</small>` : ''}</th><td>${esc(r[2])}</td></tr>`).join('') + '</tbody>';
+  }
+
+  /* ----- calendar ----- */
+  const canCheckIn = d => d >= TODAY && d < LAST_MONTH && !state.blocked.has(dkey(d));
+  function dayInfo(d) {
+    const k = dkey(d), booked = state.blocked.has(k), { checkin: ci, checkout: co } = state;
+    const info = { cls: [], disabled: false, label: '' };
+    if (booked) info.cls.push('booked');
+    if (d < TODAY) { info.cls.push('past'); info.disabled = true; }
+    if (+d === +TODAY) info.cls.push('today');
+    if (ci && +d === +ci) info.cls.push('start', ...(co ? ['has-end'] : []));
+    if (co && +d === +co) info.cls.push('end');
+    if (ci && co && d > ci && d < co) info.cls.push('in-range');
+    if (!info.disabled) {
+      if (ci && !co && d > ci) {                         // choosing check-out
+        const v = validateRange(ci, d, state.blocked, TODAY);
+        if (!v.ok) { info.disabled = true; info.label = v.reason === 'minNights' ? t('stMin', { n: CONFIG.minNights }) : t('dayUnavailable'); }
+        else if (booked) { info.cls.push('co-ok'); info.label = t('dayCheckoutOnly'); }
+      } else if (!(ci && +d === +ci) && !canCheckIn(d)) { info.disabled = true; info.label = booked ? t('dayBooked') : t('dayUnavailable'); }
+    }
+    if (info.cls.includes('start')) info.label = t('dayCheckin');
+    if (info.cls.includes('end')) info.label = t('dayCheckout');
+    return info;
+  }
+  function renderCalendar() {
+    const count = mqDesktop.matches ? 2 : 1;
+    if (addMonths(state.view, count - 1) > LAST_MONTH) state.view = addMonths(LAST_MONTH, 1 - count);
+    if (state.view < FIRST_MONTH) state.view = FIRST_MONTH;
+    const dows = Array.from({ length: 7 }, (_, i) => fmtDate(new Date(2024, 0, 1 + i), { weekday: 'short' }).replace('.', ''));
+    let html = '';
+    for (let m = 0; m < count; m++) {
+      const first = addMonths(state.view, m), lead = (first.getDay() + 6) % 7;   // Monday-first weeks
+      const dim = new Date(first.getFullYear(), first.getMonth() + 1, 0).getDate();
+      html += `<div class="month"><h3>${esc(fmtDate(first, { month: 'long', year: 'numeric' }))}</h3>
+        <div class="dow" aria-hidden="true">${dows.map(d => `<span>${esc(d)}</span>`).join('')}</div><div class="days">`;
+      for (let i = 0; i < lead; i++) html += '<span></span>';
+      for (let day = 1; day <= dim; day++) {
+        const d = new Date(first.getFullYear(), first.getMonth(), day), info = dayInfo(d);
+        const aria = fmtDate(d, { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' }) + (info.label ? ', ' + info.label : '');
+        html += `<button type="button" class="day ${info.cls.join(' ')}" data-date="${dkey(d)}" aria-label="${esc(aria)}"${info.disabled ? ' disabled' : ''}${info.cls.includes('start') || info.cls.includes('end') ? ' aria-pressed="true"' : ''}>${day}</button>`;
+      }
+      html += '</div></div>';
+    }
+    const months = $('months');
+    months.className = 'months' + (count === 2 ? ' two' : '');
+    months.innerHTML = html;
+    $('calPrev').disabled = state.view <= FIRST_MONTH;
+    $('calNext').disabled = addMonths(state.view, count - 1) >= LAST_MONTH;
+    $('demoBadge').hidden = !!CONFIG.icalProxyUrl;
+    $('legend').innerHTML = `<span><i></i>${esc(t('legendFree'))}</span><span><i class="l-booked"></i>${esc(t('legendBooked'))}</span><span><i class="l-sel"></i>${esc(t('legendSel'))}</span>`;
+    renderStatus();
+  }
+  function renderStatus() {
+    const el = $('calStatus'), s = state.status;
+    let msg, warn = false;
+    if (state.loadError) { msg = t('stLoadErr'); warn = true; }
+    else if (s && s.warn) { msg = t(s.key, { n: CONFIG.minNights }); warn = true; }
+    else if (state.checkin && state.checkout) msg = t('stDone', { n: daysBetween(state.checkin, state.checkout) });
+    else if (state.checkin) msg = t('stPickOut', { n: CONFIG.minNights });
+    else msg = t('stPickIn');
+    el.textContent = msg;
+    el.classList.toggle('warn', warn);
+  }
+  function onDayClick(d) {
+    const { checkin: ci, checkout: co } = state;
+    state.status = null;
+    if (!ci || co || d <= ci) {
+      if (canCheckIn(d)) { state.checkin = d; state.checkout = null; }
+      else state.status = { key: 'stUnavailable', warn: true };
+    } else {
+      const v = validateRange(ci, d, state.blocked, TODAY);
+      if (v.ok) state.checkout = d;
+      else state.status = { key: v.reason === 'minNights' ? 'stMin' : v.reason === 'booked' ? 'stBooked' : 'stUnavailable', warn: true };
+    }
+    renderCalendar(); renderPanel();
+    const btn = document.querySelector(`.day[data-date="${dkey(d)}"]`);
+    if (btn && !btn.disabled) btn.focus();
+  }
+
+  /* ----- booking panel ----- */
+  function renderPanel() {
+    const { checkin: ci, checkout: co } = state;
+    const R = CONFIG.rates;
+    const valid = ci && co && validateRange(ci, co, state.blocked, TODAY).ok;
+    const q = valid ? quote(ci, co) : null;
+    let breakdown = '';
+    if (q) {
+      const rows = [];
+      if (q.monthly) {
+        rows.push(`<li><span>${esc(t('monthlyLine', { n: q.nights }))}</span><span>${money(q.monthly)}</span></li>`);
+        rows.push(`<li class="muted"><span>${esc(L(R.monthlyNote))}</span></li>`);
+      } else {
+        if (q.weekdayNights) rows.push(`<li><span>${esc(t(q.weekdayNights === 1 ? 'wkdayOne' : 'wkdayMany', { n: q.weekdayNights, p: money(R.weekday) }))}</span><span>${money(q.weekdayAmount)}</span></li>`);
+        if (q.weekendNights) rows.push(`<li><span>${esc(t(q.weekendNights === 1 ? 'wkendOne' : 'wkendMany', { n: q.weekendNights, p: money(R.weekend) }))}</span><span>${money(q.weekendAmount)}</span></li>`);
+        if (q.discount) rows.push(`<li class="discount"><span>${esc(t('weeklyLine', { n: R.weeklyDiscount.percent }))}</span><span>−${money(q.discount)}</span></li>`);
+      }
+      if (q.cleaning) rows.push(`<li><span>${esc(t('cleaningLine'))}</span><span>${money(q.cleaning)}</span></li>`);
+      rows.push(`<li class="total"><span>${esc(t('totalLine'))}</span><span>${money(q.total)}</span></li>`);
+      breakdown = `<ul class="breakdown" aria-live="polite">${rows.join('')}</ul><p class="save">${icon('tag')}${esc(t('saveNote'))}</p>`;
+    } else breakdown = `<p class="empty">${esc(t('emptyQuote'))}</p>`;
+
+    let wa = '', mail = '';
+    if (q) {
+      const msg = buildMessage(q);
+      const subject = t('msgSubject', { name: CONFIG.propertyName, in: fmtDate(ci, { day: 'numeric', month: 'short' }), out: fmtDate(co, { day: 'numeric', month: 'short', year: 'numeric' }) });
+      wa = whatsappUrl(msg); mail = mailtoUrl(subject, msg);
+    }
+    const act = (href, key, ic, cls, ext) => href
+      ? `<a class="btn ${cls}" href="${esc(href)}"${ext ? ' target="_blank" rel="noopener"' : ''}>${icon(ic)}${esc(t(key))}</a>`
+      : `<a class="btn ${cls}" aria-disabled="true" role="link">${icon(ic)}${esc(t(key))}</a>`;
+    const field = (lbl, d) => `<button type="button" class="field" data-goto="${d ? dkey(d) : ''}"><span>${esc(lbl)}</span><strong>${esc(d ? fmtDate(d, { weekday: 'short', day: 'numeric', month: 'short' }) : t('addDate'))}</strong></button>`;
+
+    $('panel').innerHTML = `
+      <p class="panel-from">${esc(t('fromNight', { p: money(Math.min(R.weekday, R.weekend)) }))} <small>${esc(t('perNight'))}</small></p>
+      <div class="fields">${field(t('checkin'), ci)}${field(t('checkout'), co)}</div>
+      <div class="guests">
+        <div class="lbl"><span>${esc(t('guests'))}</span>${esc(t('guestsMax', { n: CONFIG.maxGuests }))}</div>
+        <div class="stepper">
+          <button type="button" class="icon-btn" data-guests="-1" aria-label="${esc(t('fewer'))}"${state.guests <= 1 ? ' disabled' : ''}>${icon('minus')}</button>
+          <output aria-live="polite">${state.guests}</output>
+          <button type="button" class="icon-btn" data-guests="1" aria-label="${esc(t('more'))}"${state.guests >= CONFIG.maxGuests ? ' disabled' : ''}>${icon('plus')}</button>
+        </div>
+      </div>
+      ${breakdown}
+      <div class="actions">${act(wa, 'reqWhatsapp', 'whatsapp', '', true)}${act(mail, 'reqEmail', 'mail', 'btn-line', false)}</div>
+      <p class="confirm-note">${esc(t('confirmNote'))}</p>`;
+  }
+
+  /* ----- lightbox ----- */
+  const lb = { list: [], i: 0, trigger: null };
+  function lbShow(i, instant) {
+    const n = lb.list.length; lb.i = (i + n) % n;
+    const p = lb.list[lb.i], img = $('lbImg');
+    const swap = () => { img.src = p.file; img.alt = L(p.alt); };
+    $('lbCap').textContent = L(p.caption) || L(p.alt);
+    $('lbCount').textContent = t('photoOf', { i: lb.i + 1, n });
+    if (instant) swap();
+    else { img.classList.add('fading'); setTimeout(() => { swap(); }, 180); }
+    [lb.i + 1, lb.i - 1].forEach(j => { const q = lb.list[(j + n) % n]; if (q) new Image().src = q.file; });
+  }
+  $('lbImg').addEventListener('load', e => e.target.classList.remove('fading'));
+  function lbOpen(list, i, trigger) {
+    lb.list = list; lb.trigger = trigger;
+    $('lbImg').classList.add('fading');
+    lbShow(i, true);
+    const el = $('lb'); el.classList.add('open'); el.setAttribute('aria-hidden', 'false');
+    document.documentElement.style.overflow = 'hidden';
+    $('lbClose').focus();
+  }
+  function lbClose() {
+    const el = $('lb'); el.classList.remove('open'); el.setAttribute('aria-hidden', 'true');
+    document.documentElement.style.overflow = '';
+    if (lb.trigger) lb.trigger.focus({ preventScroll: true });
+  }
+  $('lbClose').addEventListener('click', lbClose);
+  $('lbPrev').addEventListener('click', () => lbShow(lb.i - 1));
+  $('lbNext').addEventListener('click', () => lbShow(lb.i + 1));
+  $('lbStage').addEventListener('click', e => { if (e.target.id === 'lbStage') lbClose(); });
+  document.addEventListener('keydown', e => {
+    if (!$('lb').classList.contains('open')) return;
+    if (e.key === 'Escape') lbClose();
+    else if (e.key === 'ArrowLeft') lbShow(lb.i - 1);
+    else if (e.key === 'ArrowRight') lbShow(lb.i + 1);
+    else if (e.key === 'Tab') {       // keep focus inside the lightbox
+      const f = [$('lbClose'), $('lbPrev'), $('lbNext')], idx = f.indexOf(document.activeElement);
+      e.preventDefault(); f[(idx + (e.shiftKey ? -1 : 1) + f.length) % f.length].focus();
+    }
+  });
+  let touchX = null, touchY = null;
+  $('lbStage').addEventListener('touchstart', e => { touchX = e.touches[0].clientX; touchY = e.touches[0].clientY; }, { passive: true });
+  $('lbStage').addEventListener('touchend', e => {
+    if (touchX == null) return;
+    const dx = e.changedTouches[0].clientX - touchX, dy = e.changedTouches[0].clientY - touchY;
+    if (Math.abs(dx) > 45 && Math.abs(dx) > Math.abs(dy)) lbShow(lb.i + (dx < 0 ? 1 : -1));
+    touchX = null;
+  });
+
+  /* ----- events ----- */
+  document.addEventListener('click', e => {
+    const langBtn = e.target.closest('[data-lang]');
+    if (langBtn && langBtn.dataset.lang !== state.lang) { state.lang = langBtn.dataset.lang; renderAll(); return; }
+    const chip = e.target.closest('[data-filter]');
+    if (chip) { state.filter = chip.dataset.filter; state.expanded = false; renderChips(); renderGallery(); return; }
+    if (e.target.closest('#moreBtn')) {
+      const wasExpanded = state.expanded; state.expanded = !state.expanded; renderGallery();
+      if (wasExpanded) $('gallery').scrollIntoView({ behavior: 'smooth' });
+      return;
+    }
+    const tile = e.target.closest('.tile');
+    if (tile) { lbOpen(filtered(), +tile.dataset.index, tile); return; }
+    const day = e.target.closest('.day');
+    if (day && !day.disabled) { onDayClick(parseKey(day.dataset.date)); return; }
+    const g = e.target.closest('[data-guests]');
+    if (g) { state.guests = Math.max(1, Math.min(CONFIG.maxGuests, state.guests + +g.dataset.guests)); renderPanel(); document.querySelector(`[data-guests="${g.dataset.guests}"]`)?.focus(); return; }
+    const field = e.target.closest('[data-goto]');
+    if (field) {
+      if (field.dataset.goto) { const d = parseKey(field.dataset.goto); state.view = new Date(d.getFullYear(), d.getMonth(), 1); renderCalendar(); }
+      $('months').scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+  });
+  $('calPrev').addEventListener('click', () => { state.view = addMonths(state.view, -1); renderCalendar(); });
+  $('calNext').addEventListener('click', () => { state.view = addMonths(state.view, 1); renderCalendar(); });
+  mqDesktop.addEventListener('change', renderCalendar);
+
+  /* ----- nav + sticky bar + reveal ----- */
+  new IntersectionObserver(([en]) => $('nav').classList.toggle('solid', !en.isIntersecting), { rootMargin: '-64px 0px 0px 0px' }).observe($('top'));
+  // Sticky bar hides over the hero (it has its own button) and once the calendar is in view.
+  const inView = { top: true, availability: false };
+  const barIO = new IntersectionObserver(entries => {
+    entries.forEach(en => { inView[en.target.id] = en.isIntersecting; });
+    $('mbar').classList.toggle('hide', inView.top || inView.availability);
+  }, { threshold: 0.05, rootMargin: '0px 0px -30% 0px' });
+  barIO.observe($('top')); barIO.observe($('availability'));
+  $('mbar').classList.add('hide');
+  const io = new IntersectionObserver(entries => entries.forEach(en => { if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); } }), { rootMargin: '0px 0px -8% 0px' });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  /* ----- boot ----- */
+  function renderAll() { applyStatic(); renderHero(); renderChips(); renderGallery(); renderContent(); renderRates(); renderCalendar(); renderPanel(); }
+  renderAll();
+  getBlockedDates()
+    .then(set => { state.blocked = set; })
+    .catch(err => { console.warn(err); state.loadError = true; })
+    .finally(() => { renderCalendar(); renderPanel(); });
+}
+</script>
+</body>
+</html>
